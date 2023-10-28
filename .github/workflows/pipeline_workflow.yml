@@ -112,7 +112,7 @@ jobs:
           echo "| pr key | ${{steps.pr-number.outputs.value}} |" >> $GITHUB_STEP_SUMMARY
 
   unit-tests:
-    name: Unit Tests, Sonar
+    name: Unit Tests
     needs: [ setup-job ]
     runs-on: ubuntu-latest
     permissions:
@@ -171,8 +171,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn clean verify \
-            -T 4
+          mvn clean verify
 
       - name: Run unit tests automatically
         if: needs.setup-job.outputs.run-type != 'manual'
@@ -181,7 +180,6 @@ jobs:
 #          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
         run: |
           mvn clean verify 
-            -T 1C \
 
 #      - name: Zip Reports for Upload
 #        if: always()
