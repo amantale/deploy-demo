@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="initial commit to fix integration with artifactory">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

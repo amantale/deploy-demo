@@ -19,7 +19,7 @@ jobs:
   setup-job:
     name: Setup
     if: github.event.pull_request.draft != true
-    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    runs-on: ubuntu-latest
     outputs:
       project-branch: ${{ steps.project-branch.outputs.name }}
       is-pr: ${{ steps.is-pr.outputs.value }}
@@ -119,7 +119,7 @@ jobs:
   unit-tests:
     name: Unit Tests, Sonar
     needs: [ setup-job ]
-    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
@@ -184,7 +184,7 @@ jobs:
         if: needs.setup-job.outputs.run-type != 'manual'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
+#          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
         run: |
           mvn clean verify 
             --show-version --errors --batch-mode \
@@ -631,7 +631,7 @@ jobs:
 
 #  evaluate-and-notify:
 #    if: always()
-#    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+#    runs-on: ubuntu-latest
 #    needs:
 #      - setup-job
 #      - unit-tests

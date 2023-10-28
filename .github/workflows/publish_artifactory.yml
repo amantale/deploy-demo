@@ -12,7 +12,7 @@ on:
 jobs:
   package_artifactory:
     name: Build and Publish
-    runs-on: ${{ fromJSON(vars.SWI_ENG_ORG_LAB_UBUNTU_2204_USE1) }}
+    runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     outputs:
