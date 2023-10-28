@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" afterDir="false" />
-    </list>
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698506216931</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506606037</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506606037</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
