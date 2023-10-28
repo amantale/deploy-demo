@@ -1,0 +1,672 @@
+name: PR/CI
+run-name: ${{ github.event.pull_request.merged && 'CI' || 'PR' }} build for ${{ github.ref_name }}
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - ready_for_review
+      - converted_to_draft
+      - opened
+      - synchronize
+      - reopened
+      - closed
+
+concurrency:
+  group: ${{ github.event_name }}_${{ github.ref_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  setup-job:
+    name: Setup
+    if: github.event.pull_request.draft != true
+    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    outputs:
+      project-branch: ${{ steps.project-branch.outputs.name }}
+      is-pr: ${{ steps.is-pr.outputs.value }}
+      base-ref: ${{ steps.base.outputs.ref }}
+      base-sha: ${{ steps.base.outputs.sha }}
+      head-sha: ${{ steps.head.outputs.sha }}
+      pr-number: ${{ steps.pr-number.outputs.value }}
+      run-type: ${{ steps.run-type.outputs.type }}
+
+    steps:
+      - name: Get project branch name
+        id: project-branch
+        run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
+
+      - name: Determine if pr
+        id: is-pr
+        run: echo "value=${{ github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
+
+      - name: Determine base-ref
+        id: base
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}" >> $GITHUB_OUTPUT
+          echo "ref=${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}" >> $GITHUB_OUTPUT
+
+      - name: Determine head-sha
+        id: head
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}" >> $GITHUB_OUTPUT
+
+      - name: Match PR number from branch name
+        id: find-pr-from-branch
+        uses: MeilCli/regex-match@v1.5.27
+        if: github.event_name == 'pull_request'
+        with:
+          search_string: ${{ steps.project-branch.outputs.name }}
+          regex_pattern: '.*/pr-(\d+)-.*'
+
+      - name: Extract PR number from match
+        id: extract-pr
+        if: github.event_name == 'pull_request'
+        run: |
+          echo '${{ steps.find-pr-from-branch.outputs.matched_json }}'
+          echo pr=$(echo '${{ steps.find-pr-from-branch.outputs.matched_json }}' | jq -r 'nth(1)') >> $GITHUB_OUTPUT
+
+      - name: Set PR number
+        id: pr-number
+        run: |
+          echo "value=${{ github.event_name == 'pull_request' && github.event.pull_request.number || steps.extract-pr.outputs.pr }}" >> $GITHUB_OUTPUT 
+
+      - name: Determine run type
+        id: run-type
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+           if [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+              echo "type=ci" >> $GITHUB_OUTPUT
+           else
+              echo "type=pr" >> $GITHUB_OUTPUT
+           fi
+           exit 0
+          fi
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "type=ci" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "type=manual" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "::error::Unknown event."
+          exit 1
+
+      - uses: actions/checkout@v3
+
+      - name: Get argo branch name
+        id: project-branch
+        run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
+
+
+      - name: Create job summary
+        run: |
+          echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| project Branch | ${{steps.project-branch.outputs.name}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| runType | ${{steps.run-type.outputs.type}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| isPr | ${{steps.is-pr.outputs.value}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| baseRef | ${{steps.base.outputs.ref}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| baseSha | ${{steps.base.outputs.sha}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| headSha | ${{steps.head.outputs.sha}} |" >> $GITHUB_STEP_SUMMARY
+          echo "| pr key | ${{steps.pr-number.outputs.value}} |" >> $GITHUB_STEP_SUMMARY
+
+  unit-tests:
+    name: Unit Tests, Sonar
+    needs: [ setup-job ]
+    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    permissions:
+      id-token: write
+      contents: read
+
+#    services:
+#      mariaDb:
+#        image: mariadb:10.6
+#        env:
+#          MYSQL_ROOT_PASSWORD: root
+#          MYSQL_DATABASE: filtering
+#          MYSQL_USER: argo
+#          MYSQL_PASSWORD: argo
+#        ports:
+#          - 3306:3306
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get Artifactory access token
+        uses: Bandwidth/vault-provider-action@v1
+        with:
+          artifactory-access-token-type: readers
+#
+#      - name: Get Sonar access token
+#        if: needs.setup-job.outputs.run-type != 'manual'
+#        uses: Bandwidth/vault-provider-action@v1
+#        with:
+#          secrets: |
+#            org::secrets:github:sonarcloud-token::SONARCLOUD_TOKEN
+
+      - name: Set up TemurinJDK 17 and Maven
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+          server-id: artifactory
+          # Server-username and server-password refer to environment variables not the actual secrets
+          # These are set by the vault-provider-action
+          server-username: ARTIFACTORY_ACCESS_TOKEN_USERNAME
+          server-password: ARTIFACTORY_ACCESS_TOKEN
+
+#      - name: Cache SonarCloud packages
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Run unit tests manually
+        if: needs.setup-job.outputs.run-type == 'manual'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mvn clean verify \
+            --show-version --errors --batch-mode \
+            -T 4
+
+      - name: Run unit tests automatically
+        if: needs.setup-job.outputs.run-type != 'manual'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
+        run: |
+          mvn clean verify 
+            --show-version --errors --batch-mode \
+            -T 1C \
+
+#      - name: Zip Reports for Upload
+#        if: always()
+#        run: |
+#          modules=(
+#            "smpp-gateway"
+#            "sqs-gateway"
+#            "concatenator"
+#            "correlator"
+#            "kafka-relay"
+#            "processor"
+#            "router"
+#            "openmarket-gateway"
+#            "mms-gateway"
+#            "oneapi-gateway"
+#            "harpy/fake-smpp-upstream"
+#            "harpy/fake-smpp-client"
+#            "harpy/fake-mm4-upstream"
+#            "harpy/test-driver"
+#            "harpy/http-simulator"
+#            )
+#          for dir in "${modules[@]}"; do
+#            rsync -av "$GITHUB_WORKSPACE/$dir/target/surefire-reports/" merged-surefire-reports/
+#          done
+#
+#          tar cfz unit-test-report.tar.gz merged-surefire-reports
+#          tar cfz code-coverage-jacoco.tar.gz code-coverage/target/site
+
+#      - name: Archive unit test results
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: unit-test-report
+#          path: unit-test-report.tar.gz
+#
+#      - name: Upload code coverage
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: code-coverage-jacoco
+#          path: code-coverage-jacoco.tar.gz
+
+  package-artifactory:
+    name: Build and Publish
+    needs: [ setup-job ]
+    uses: ./.github/workflows/publish_artifactory.yml
+    secrets: inherit
+
+#  setup-harpy:
+#    name: Harpy Setup
+#    needs: [ setup-job, package-artifactory ]
+#    runs-on: ubuntu-latest
+#    outputs:
+#      environment: ${{ steps.get-env.outputs.environment }}
+#      namespace-inventory: ${{ steps.get-inventory.outputs.path }}
+#    env:
+#      GH_TOKEN: ${{ github.token }}
+#    steps:
+#      - name: Input checks and job setup.
+#        shell: bash
+#        run: |
+#          if ! [[ "${{ needs.setup-job.outputs.run-type }}" =~ ^(ci|manual|pr)$ ]]; then
+#            echo "::error::You can only have manual, ci, or pr as the value for Environment."
+#            exit 1
+#          fi
+#
+#      - uses: actions/checkout@v3
+#
+#      - name: Setting up python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.9'
+#          cache: 'pip'
+#      - run: pip install -r .github/harpy/pip.requirements.txt
+#
+#      - name: Get a free environment
+#        id: get-env
+#        shell: python
+#        env:
+#          ENVIRONMENT: ${{ needs.setup-job.outputs.run-type }}
+#        run: |
+#          from datetime import datetime
+#          from time import sleep
+#
+#          import requests
+#          import os
+#
+#
+#          def gh_api_get(url, params):
+#            gh_auth = os.getenv("GH_TOKEN", None)
+#
+#            if not gh_auth:
+#              raise Exception("You must have the GH_TOKEN variable set.")
+#
+#            return requests.get(
+#              f"https://api.github.com/repos/Bandwidth/argo/deployments{url}",
+#              params=params,
+#              headers={
+#                "Accept": "application/vnd.github+json",
+#                "X-GitHub-Api-Version": "2022-11-28",
+#                "Authorization": f"Bearer {gh_auth}"
+#              }
+#            )
+#
+#
+#          def get_environment(environments):
+#            while True:
+#              for environment in environments:
+#                sorted_deployments_response = gh_api_get("", {
+#                  "environment": environment,
+#                  "task": "deploy",
+#                  "per_page": 5
+#                })
+#
+#                sorted_deployments = sorted(list(sorted_deployments_response.json()),
+#                                            key=lambda item: datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%SZ"),
+#                                            reverse=True)
+#
+#                if len(sorted_deployments) == 0:
+#                  return environment
+#
+#                deployment_ids = [item["id"] for item in sorted_deployments]
+#                deployment_status = []
+#
+#                for deployment_id in deployment_ids:
+#                  deployment_status.append(gh_api_get(f"/{deployment_id}/statuses", {}).json())
+#
+#                deployment_status = [item for item in deployment_status if len(item) > 0]
+#                if any(status["state"] in ("success", "error", "failure") for status in deployment_status[0]):
+#                  return environment
+#
+#              print("No namespaces are available, waiting 150 seconds.")
+#              sleep(150)
+#
+#
+#          environment = os.getenv("ENVIRONMENT", "pr")
+#
+#          if environment == "pr":
+#            env = get_environment(("pr-1", "pr-2", "pr-3"))
+#          else:
+#            env = "ci"
+#
+#          with open(os.environ["GITHUB_OUTPUT"], "a") as gh_output_env:
+#            print(f"environment={env}", file=gh_output_env)
+#
+#      - name: Get Ansible Inventory
+#        id: get-inventory
+#        shell: bash
+#        run: |
+#          if [ "${{ needs.setup-job.outputs.run-type }}" == "pr" ]; then
+#            echo "path=pr" >> $GITHUB_OUTPUT
+#          else
+#            echo "path=ci" >> $GITHUB_OUTPUT
+#          fi
+#
+#      - name: Create workflow summary
+#        shell: bash
+#        run: |
+#          echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
+#          echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
+#          echo "| Environment | ${{ inputs.environment }} |" >> $GITHUB_STEP_SUMMARY
+#          echo "| Artifactory Image Tag | ${{ needs.package-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY
+#          echo "| Harpy MDR Namespace | ${{ steps.get-env.outputs.environment }} |" >> $GITHUB_STEP_SUMMARY
+#
+#  run-harpy:
+#    name: Harpy Tests
+#    needs: [ setup-harpy, package-artifactory ]
+#    runs-on: ${{ fromJSON(vars.SWI_GLORG_LAB_UBUNTU_2204_XL) }}
+#    concurrency: ${{ needs.setup-harpy.outputs.environment }}
+#    environment: ${{ needs.setup-harpy.outputs.environment }}
+#
+#    env:
+#      ARTIFACTORY_IMAGE_TAG: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
+#      NAMESPACE: "argo-${{ needs.setup-harpy.outputs.environment }}"
+#      NAMESPACE_INVENTORY: ${{ needs.setup-harpy.outputs.namespace-inventory }}
+#      GHA_HARPY_EXTERNAL_DEP: "localstack nats filterdb openserdb mpcdb kafka"
+#      GHA_HARPY_ARGO_CORE: "argo-concatenator argo-correlator argo-kafka-relay argo-processor argo-router"
+#      GHA_HARPY_ARGO_HARPY: "argo-harpy-fake-smpp-client argo-harpy-fake-smpp-upstream argo-harpy-fake-mm4-upstream argo-harpy-http-simulator argo-harpy-test-driver"
+#      GHA_HARPY_ARGO_GATEWAY: "argo-smpp-gateway argo-mms-gateway argo-openmarket-gateway argo-sqs-gateway argo-oneapi-gateway"
+#      FILTERDB_USERNAME: filterUser
+#      FILTERDB_PASSWORD: filterPassword
+#      FILTERDB_ROOT_PASSWORD: filterRootPassword
+#      OPENSERDB_USERNAME: openserUser
+#      OPENSERDB_PASSWORD: openserPassword
+#      OPENSERDB_ROOT_PASSWORD: openserRootPassword
+#      MPCDB_USERNAME: mpcUser
+#      MPCDB_PASSWORD: mpcPassword
+#      MPCDB_ROOT_PASSWORD: mpcRootPassword
+#      GHA_MDR_JAAS_CONF_DIST: /tmp/gha-argo-harpy-mdr.jaas.conf
+#
+#    permissions:
+#      id-token: write
+#      contents: read
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - uses: ./.github/actions/setup-ansible
+#        with:
+#          vault-password: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+#
+#      - run: pip install -r .github/harpy/pip.requirements.txt
+#
+#      - name: Get secrets from Ansible.
+#        uses: ./.github/actions/ansible-variable-extractor
+#        id: extract_vars
+#        with:
+#          host: ${{ env.NAMESPACE }}
+#          variable-keys: >-
+#            [
+#              { "key": "vault_kafka_producer_username",         "isSecret": true },
+#              { "key": "vault_kafka_producer_password",         "isSecret": true },
+#              { "key": "vault_kafka_consumer_username",         "isSecret": true },
+#              { "key": "vault_kafka_consumer_password",         "isSecret": true },
+#              { "key": "adaptive_authorization_client_id",      "isSecret": true },
+#              { "key": "adaptive_authorization_client_secret",  "isSecret": true }
+#            ]
+#          working-directory: ${{ github.workspace }}/operations
+#          inventory-path: inventories/${{ env.NAMESPACE_INVENTORY }}/inventory.yml
+#
+#      - name: Output secrets as env variables for easier processing.
+#        run: |
+#          echo "KAFKA_PRODUCER_USERNAME=${{ steps.extract_vars.outputs.vault_kafka_producer_username }}" >> $GITHUB_ENV
+#          echo "KAFKA_PRODUCER_PASSWORD=${{ steps.extract_vars.outputs.vault_kafka_producer_password }}" >> $GITHUB_ENV
+#          echo "KAFKA_CONSUMER_USERNAME=${{ steps.extract_vars.outputs.vault_kafka_consumer_username }}" >> $GITHUB_ENV
+#          echo "KAFKA_CONSUMER_PASSWORD=${{ steps.extract_vars.outputs.vault_kafka_consumer_password }}" >> $GITHUB_ENV
+#
+#          echo "ADAPTIVE_AUTHORIZATION_CLIENT_ID=${{ steps.extract_vars.outputs.adaptive_authorization_client_id }}" >> $GITHUB_ENV
+#          echo "ADAPTIVE_AUTHORIZATION_CLIENT_SECRET=${{ steps.extract_vars.outputs.adaptive_authorization_client_secret }}" >> $GITHUB_ENV
+#
+#      - name: Get Artifactory Read Access Token
+#        uses: Bandwidth/vault-provider-action@v1
+#        with:
+#          artifactory-access-token-type: readers
+#
+#      - name: Login to Docker registry
+#        uses: docker/login-action@v2
+#        with:
+#          registry: bandwidth-docker.jfrog.io
+#          username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+#          password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
+#
+#      - name: Set up TemurinJDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          server-id: artifactory
+#          server-username: ARTIFACTORY_ACCESS_TOKEN_USERNAME
+#          server-password: ARTIFACTORY_ACCESS_TOKEN
+#          cache: 'maven'
+#
+#      - name: Installing dependencies
+#        run: |
+#          wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/9.19.3/flyway-commandline-9.19.3-linux-x64.tar.gz | tar -xz
+#          sudo ln -s `pwd`/flyway-9.19.3/flyway /usr/local/bin
+#
+#      - name: Pull and create all containers
+#        run: |
+#          docker compose -f .github/harpy/docker-compose.yml pull -q
+#          docker compose -f .github/harpy/docker-compose.yml create
+#
+#      - name: Starting external dependencies
+#        run: docker compose -f .github/harpy/docker-compose.yml up -d ${{ env.GHA_HARPY_EXTERNAL_DEP }}
+#
+#      - name: Adding data to external dependencies
+#        shell: bash
+#        run: |
+#          echo "::group::Database migrations"
+#
+#          echo "waiting for DBs to start..."
+#          until [ "$(docker inspect -f "{{ .State.Health.Status }}" filterdb)" == "healthy" ] &&
+#            [ "$(docker inspect -f "{{ .State.Health.Status }}" openserdb)" == "healthy" ] &&
+#            [ "$(docker inspect -f "{{ .State.Health.Status }}" mpcdb)" == "healthy" ]; do
+#            sleep 2
+#          done
+#
+#          export \
+#            FLYWAY_PLACEHOLDERS_FILTERING_SCHEMA=filtering \
+#            FLYWAY_SCHEMAS=filtering \
+#            FLYWAY_URL='jdbc:mariadb://127.0.0.1:13306' \
+#            FLYWAY_USER=${FILTERDB_USERNAME} \
+#            FLYWAY_PASSWORD=${FILTERDB_PASSWORD}
+#
+#          echo 'Applying filtering common...'
+#          flyway -locations=filesystem:db/filtering/common migrate
+#
+#          echo 'Applying filtering gha...'
+#          flyway -locations=filesystem:db/filtering/gha \
+#            -ignoreMigrationPatterns=*:missing migrate
+#
+#          export \
+#            FLYWAY_SCHEMAS=openser \
+#            FLYWAY_URL='jdbc:mariadb://127.0.0.1:23306' \
+#            FLYWAY_USER=${OPENSERDB_USERNAME} \
+#            FLYWAY_PASSWORD=${OPENSERDB_PASSWORD}
+#
+#          echo 'Applying openser common...'
+#          flyway -locations=filesystem:db/openser/common migrate
+#
+#          echo 'Applying openser gha...'
+#          flyway -locations=filesystem:db/openser/gha \
+#            -ignoreMigrationPatterns=*:missing migrate
+#
+#          export \
+#            FLYWAY_SCHEMAS=messagingprovcache \
+#            FLYWAY_URL='jdbc:mariadb://127.0.0.1:33306' \
+#            FLYWAY_USER=${MPCDB_USERNAME} \
+#            FLYWAY_PASSWORD=${MPCDB_PASSWORD}
+#
+#          echo 'Applying mpc common...'
+#          flyway -locations=filesystem:db/mpc/common migrate
+#
+#          echo "::endgroup::"
+#
+#          echo "::group::Kafka Topics"
+#
+#          echo "waiting for Kafka to start..."
+#          until [ "$kafka_health" == "healthy" ]; do
+#            kafka_health=$(docker inspect -f "{{ .State.Health.Status }}" kafka)
+#
+#            if [ "$kafka_health" == "unhealthy" ]; then
+#              echo "Kafka client became unhealthy"
+#              exit 1
+#            fi
+#
+#            sleep 2
+#          done
+#
+#          topic_names=(
+#            "argo-harpy-processor-ingress-objects"
+#            "argo-harpy-correlator-ingress-objects"
+#            "argo-harpy-relay-correlator-ingress-objects"
+#            "argo-harpy-concatenator-ingress-objects"
+#            "argo-harpy-relay-concatenator-ingress-objects"
+#          )
+#
+#          for topic in "${topic_names[@]}"; do
+#            echo "Creating topic: ${topic}"
+#            docker exec kafka /usr/bin/kafka-topics \
+#              --create --if-not-exists \
+#              --zookeeper "zookeeper:2181" \
+#              --replication-factor 1 \
+#              --partitions 3 \
+#              --topic "${topic}"
+#          done
+#
+#          echo "::endgroup::"
+#
+#          echo "::group::Localstack"
+#
+#          localstack_health=''
+#          echo "waiting for localstack to start..."
+#          until [ "$localstack_health" == "healthy" ]; do
+#          localstack_health=$(docker inspect -f "{{ .State.Health.Status }}" localstack)
+#
+#          if [ "$localstack_health" == "unhealthy" ]; then
+#          echo "Localstack became unhealthy"
+#          exit 1
+#          fi
+#
+#          sleep 2
+#          done
+#
+#          echo "::endgroup::"
+#
+#      - name: Start Argo Core Services
+#        run: docker compose -f .github/harpy/docker-compose.yml up -d ${{ env.GHA_HARPY_ARGO_CORE }}
+#
+#      - name: Argo Core Services Health Check
+#        shell: bash
+#        run: |
+#          retries=5
+#          intervals=30
+#
+#          echo 'Waiting 30 seconds for services to start.'
+#          sleep 30
+#          echo "Performing health check on '${{ env.GHA_HARPY_ARGO_CORE }}' with $retries retries and an interval of $intervals seconds."
+#          .github/harpy/health_check.py $retries $intervals ${{ env.GHA_HARPY_ARGO_CORE }}
+#
+#      - name: Start Argo Gateway Services
+#        run: docker compose -f .github/harpy/docker-compose.yml up -d ${{ env.GHA_HARPY_ARGO_GATEWAY }}
+#
+#      - name: Argo Gateway Services Health Check
+#        shell: bash
+#        run: |
+#          retries=5
+#          intervals=30
+#
+#          echo 'Waiting 30 seconds for services to start.'
+#          sleep 30
+#          echo "Performing health check on '${{ env.GHA_HARPY_ARGO_GATEWAY }}' with $retries retries and an interval of $intervals seconds."
+#          .github/harpy/health_check.py $retries $intervals ${{ env.GHA_HARPY_ARGO_GATEWAY }}
+#
+#      - name: Creating authentication file
+#        run: |
+#          echo '${{secrets.ANSIBLE_VAULT_PASSWORD}}' > $ANSIBLE_VAULT_PASSWORD_FILE
+#          ansible $NAMESPACE -i operations/inventories/${NAMESPACE_INVENTORY}/inventory.yml \
+#          -c local \
+#          -m template \
+#          -a "src=.github/harpy/mdr.jaas.j2.conf dest=${GHA_MDR_JAAS_CONF_DIST}"
+#
+#      - name: Start Argo Harpy Services
+#        run: docker compose -f .github/harpy/docker-compose.yml up -d ${{ env.GHA_HARPY_ARGO_HARPY }}
+#
+#      - name: Argo Harpy Services Health Check
+#        shell: bash
+#        run: |
+#          retries=5
+#          intervals=30
+#
+#          echo 'Waiting 30 seconds for services to start.'
+#          sleep 30
+#          echo "Performing health check on '${{ env.GHA_HARPY_ARGO_HARPY }}' with $retries retries and an interval of $intervals seconds."
+#          .github/harpy/health_check.py $retries $intervals ${{ env.GHA_HARPY_ARGO_HARPY }}
+#
+#      - name: Run Harpy Test Scenarios
+#        shell: bash
+#        run: |
+#          test_driver_url="http://localhost:$(docker inspect argo-harpy-test-driver | jq -r ".[0].HostConfig.PortBindings[\"8080/tcp\"][0].HostPort")"
+#          mvn --no-transfer-progress clean verify failsafe:integration-test -T2C -Pscenario-tests -DskipTests -pl harpy/test-runner --also-make -DTEST_DRIVER_URL="$test_driver_url"
+#
+#      - name: Export docker compose logs
+#        if: always()
+#        shell: bash
+#        run: docker compose -f .github/harpy/docker-compose.yml logs > /tmp/docker-compose.log
+#
+#      - name: Upload docker logs
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: docker-compose-logs
+#          path: |
+#            /tmp/docker-compose.log
+#
+#      - name: Teardown
+#        if: always()
+#        shell: bash
+#        run: docker compose -f .github/harpy/docker-compose.yml down
+
+#  evaluate-and-notify:
+#    if: always()
+#    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+#    needs:
+#      - setup-job
+#      - unit-tests
+#      - package-artifactory
+#      - run-harpy
+#    steps:
+#      - id: evaluate
+#        run: |
+#          job_status="success"
+#          job_results=("${{ needs.setup-job.result }}" "${{ needs.unit-tests.result }}" "${{ needs.package-artifactory.result }}" "${{ needs.run-harpy.result }}")
+#          for job_result in "${job_results[@]}"; do
+#            case "$job_result" in
+#              failure)
+#                job_status="failure"
+#                break ;;
+#              cancelled)
+#                job_status="cancelled"
+#                break ;;
+#              *) ;;
+#            esac
+#          done
+#          echo "status=$job_status" >> $GITHUB_OUTPUT
+
+#      - name: Send Slack notifications
+#        uses: Bandwidth/build-notify-slack-action@v1.0.1
+#        with:
+#          job-status: ${{ steps.evaluate.outputs.status }}
+#          slack-bot-token: ${{ secrets.MSG_GHA_SLACKBOT }}
+#          slack-channel: ${{ secrets.MESSAGING_NOTIFY_GHA }}
+
+  promote-images:
+    if: needs.setup-job.outputs.run-type == 'ci' && (needs.setup-job.outputs.base-ref == 'master' || startsWith(needs.setup-job.outputs.base-ref, 'hotfix/'))
+    name: Promotes images from dev to prod Artifactory
+    needs: [ setup-job, unit-tests, package-artifactory ]
+    uses: ./.github/workflows/promote_artifactory.yml
+    with:
+      application_version_tag: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
+    secrets: inherit

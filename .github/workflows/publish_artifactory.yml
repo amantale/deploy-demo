@@ -1,0 +1,78 @@
+name: Build
+run-name: Build ${{ github.ref_name }}
+on:
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      artifactory-version-tag:
+        description: "Artifactory version Tag"
+        value: ${{ jobs.package_artifactory.outputs.artifactory-version-tag }}
+
+
+jobs:
+  package_artifactory:
+    name: Build and Publish
+    runs-on: ${{ fromJSON(vars.SWI_ENG_ORG_LAB_UBUNTU_2204_USE1) }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      artifactory-version-tag: ${{ steps.tag-version.outputs.tag }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up TemurinJDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: artifactory
+          server-username: ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME
+          server-password: ARTIFACTORY_ACCESS_READ_TOKEN
+          cache: 'maven'
+
+      - name: Get Artifactory Read Access Token
+        uses: Bandwidth/vault-provider-action@v1
+        with:
+          artifactory-access-token-type: readers
+
+      - name: Outputs reader token
+        shell: bash
+        run: |
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ env.ARTIFACTORY_ACCESS_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Get Artifactory Write Access Token
+        uses: Bandwidth/vault-provider-action@v1
+        with:
+          artifactory-access-token-type: "dev-writers"
+
+      - name: Login to Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: bandwidth-docker.jfrog.io
+          username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
+
+      - name: Create tag version
+        id: tag-version
+        run: |
+          SHA=$(echo "${{ needs.setup-job.outputs.head-sha }}-$(uuidgen)" | sha1sum)
+          DATE=$(date +%Y-%m-%d)
+          echo "tag=v${DATE}-$(echo $SHA | cut -c1-4)" >> $GITHUB_OUTPUT
+
+      - name: Build project, create docker image and publish to artifactory
+        shell: bash
+        run: |
+          set -ueo pipefail
+          [[ "${{ steps.settings.outputs.verbose }}" == "true" ]] && set -ueox pipefail
+          mvn --batch-mode clean install -DskipTests=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error
+          mvn jib:build \
+            -DskipTests=true \
+            -Djib.skip=false \
+            -Djib.from.image=bandwidth-docker.jfrog.io/library/eclipse-temurin:17 \
+            -Ddocker.repo=argo \
+            -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
+            -pl 'smpp-gateway,sqs-gateway,concatenator,correlator,kafka-relay,processor,router,openmarket-gateway,mms-gateway,oneapi-gateway,harpy/fake-smpp-upstream,harpy/fake-smpp-client,harpy/fake-mm4-upstream,harpy/test-driver,harpy/http-simulator'
