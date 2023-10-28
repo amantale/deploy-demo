@@ -135,10 +135,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Artifactory access token
-        uses: Bandwidth/vault-provider-action@v1
-        with:
-          artifactory-access-token-type: readers
+#      - name: Get Artifactory access token
+#        uses: Bandwidth/vault-provider-action@v1
+#        with:
+#          artifactory-access-token-type: readers
 #
 #      - name: Get Sonar access token
 #        if: needs.setup-job.outputs.run-type != 'manual'
@@ -657,11 +657,11 @@ jobs:
 #          slack-bot-token: ${{ secrets.MSG_GHA_SLACKBOT }}
 #          slack-channel: ${{ secrets.MESSAGING_NOTIFY_GHA }}
 
-  promote-images:
-    if: needs.setup-job.outputs.run-type == 'ci' && (needs.setup-job.outputs.base-ref == 'master' || startsWith(needs.setup-job.outputs.base-ref, 'hotfix/'))
-    name: Promotes images from dev to prod Artifactory
-    needs: [ setup-job, unit-tests, package-artifactory ]
-    uses: ./.github/workflows/promote_artifactory.yml
-    with:
-      application_version_tag: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
-    secrets: inherit
+#  promote-images:
+#    if: needs.setup-job.outputs.run-type == 'ci' && (needs.setup-job.outputs.base-ref == 'master' || startsWith(needs.setup-job.outputs.base-ref, 'hotfix/'))
+#    name: Promotes images from dev to prod Artifactory
+#    needs: [ setup-job, unit-tests, package-artifactory ]
+#    uses: ./.github/workflows/promote_artifactory.yml
+#    with:
+#      application_version_tag: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
+#    secrets: inherit
