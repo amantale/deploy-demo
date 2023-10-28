@@ -1,6 +1,7 @@
 #
 # Build stage
 #
+#test
 FROM eclipse-temurin:17-jdk-jammy AS build
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
