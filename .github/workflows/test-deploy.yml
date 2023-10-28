@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - fixIntegrationWithArtifactory
       
 jobs:
   build-and-tag:
