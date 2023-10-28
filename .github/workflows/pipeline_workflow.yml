@@ -234,7 +234,7 @@ jobs:
   package-artifactory:
     name: Build and Publish
     needs: [ setup-job ]
-    uses: ./.github/workflows/publish_artifactory.yml
+    uses: ../.github/workflows/publish_artifactory.yml
     secrets: inherit
 
 #  setup-harpy:
