@@ -30,47 +30,6 @@ jobs:
       run-type: ${{ steps.run-type.outputs.type }}
 
     steps:
-      - name: Get project branch name
-        id: project-branch
-        run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
-
-      - name: Determine if pr
-        id: is-pr
-        run: echo "value=${{ github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
-
-      - name: Determine base-ref
-        id: base
-        if: steps.is-pr.outputs.value == 'true'
-        run: |
-          echo "sha=${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}" >> $GITHUB_OUTPUT
-          echo "ref=${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}" >> $GITHUB_OUTPUT
-
-      - name: Determine head-sha
-        id: head
-        if: steps.is-pr.outputs.value == 'true'
-        run: |
-          echo "sha=${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}" >> $GITHUB_OUTPUT
-
-      - name: Match PR number from branch name
-        id: find-pr-from-branch
-        uses: MeilCli/regex-match@v1.5.27
-        if: github.event_name == 'pull_request'
-        with:
-          search_string: ${{ steps.project-branch.outputs.name }}
-          regex_pattern: '.*/pr-(\d+)-.*'
-
-      - name: Extract PR number from match
-        id: extract-pr
-        if: github.event_name == 'pull_request'
-        run: |
-          echo '${{ steps.find-pr-from-branch.outputs.matched_json }}'
-          echo pr=$(echo '${{ steps.find-pr-from-branch.outputs.matched_json }}' | jq -r 'nth(1)') >> $GITHUB_OUTPUT
-
-      - name: Set PR number
-        id: pr-number
-        run: |
-          echo "value=${{ github.event_name == 'pull_request' && github.event.pull_request.number || steps.extract-pr.outputs.pr }}" >> $GITHUB_OUTPUT 
-
       - name: Determine run type
         id: run-type
         shell: bash
@@ -97,12 +56,48 @@ jobs:
           echo "::error::Unknown event."
           exit 1
 
+      - name: Determine if pr
+        id: is-pr
+        run: echo "value=${{ github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
+
+      - name: Determine base-ref
+        id: base
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}" >> $GITHUB_OUTPUT
+          echo "ref=${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}" >> $GITHUB_OUTPUT
+
+      - name: Determine head-sha
+        id: head
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v3
 
       - name: Get project branch name
         id: project-branch
         run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
 
+      - name: Match PR number from branch name
+        id: find-pr-from-branch
+        uses: MeilCli/regex-match@v1.5.27
+        if: github.event_name == 'pull_request'
+        with:
+          search_string: ${{ steps.project-branch.outputs.name }}
+          regex_pattern: '.*/pr-(\d+)-.*'
+
+      - name: Extract PR number from match
+        id: extract-pr
+        if: github.event_name == 'pull_request'
+        run: |
+          echo '${{ steps.find-pr-from-branch.outputs.matched_json }}'
+          echo pr=$(echo '${{ steps.find-pr-from-branch.outputs.matched_json }}' | jq -r 'nth(1)') >> $GITHUB_OUTPUT
+
+      - name: Set PR number
+        id: pr-number
+        run: |
+          echo "value=${{ github.event_name == 'pull_request' && github.event.pull_request.number || steps.extract-pr.outputs.pr }}" >> $GITHUB_OUTPUT 
 
       - name: Create job summary
         run: |
