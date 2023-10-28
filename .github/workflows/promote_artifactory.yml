@@ -1,0 +1,48 @@
+name: Promote
+run-name: "Promote ${{ inputs.application_version_tag }} artifacts to prod"
+on:
+  workflow_dispatch:
+    inputs:
+      application_version_tag:
+        type: string
+        description: "Artifactory version to use."
+        required: true
+  workflow_call:
+    inputs:
+      application_version_tag:
+        type: string
+        description: "Artifactory version to use."
+        required: true
+
+jobs:
+  promote_images:
+    name: Promotes images from dev to prod Artifactory
+    runs-on: ${{ fromJSON(vars.SWI_ENG_ORG_LAB_UBUNTU_2204_USE1) }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ARTIFACTORY_IMAGE_TAG: ${{ inputs.application_version_tag }}
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Artifactory Writer Access Token for prod
+        uses: Bandwidth/vault-provider-action@v1
+        with:
+          artifactory-access-token-type: prod-writers
+
+      - name: Promote Image to Prod Artifactory
+        uses: ./.github/actions/artifacts-publish-prod
+        with:
+          APPLICATION_VERSION: "${{ env.ARTIFACTORY_IMAGE_TAG }}"
+          ARTIFACTORY_ACCESS_TOKEN_USERNAME: "${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}"
+          ARTIFACTORY_ACCESS_TOKEN: "${{ env.ARTIFACTORY_ACCESS_TOKEN }}"
+          ARTIFACTORY_REPOS: "argo/smpp-gateway argo/sqs-gateway argo/concatenator argo/correlator argo/kafka-relay argo/processor argo/router argo/openmarket-gateway argo/mms-gateway argo/oneapi-gateway"
+
+      - name: Push Tag to GitHub
+        run: |
+          TAG=${{ env.ARTIFACTORY_IMAGE_TAG }}
+          echo "git tag $TAG"
+          git tag "$TAG"
+          git push origin "$TAG"
