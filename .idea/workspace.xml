@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="initial commit to fix integration with artifactory">
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
       <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +99,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698475165156</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added ubuntu-latest instead of gha runner">
+      <created>1698478277637</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478277638</updated>
+    </task>
+    <task id="LOCAL-00004" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
+      <created>1698478427667</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478427667</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +133,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial creation of the first microservice" />
     <MESSAGE value="initial commit to fix integration with artifactory" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit to fix integration with artifactory" />
+    <MESSAGE value="added ubuntu-latest instead of gha runner" />
+    <MESSAGE value="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml" />
   </component>
 </project>
