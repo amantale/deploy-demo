@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698505193674</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698505548765</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505548766</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,6 +177,7 @@
     <MESSAGE value="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml" />
     <MESSAGE value="added missing workflow" />
     <MESSAGE value="fixing pipeline_workflow.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing pipeline_workflow.yml" />
+    <MESSAGE value="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
   </component>
 </project>

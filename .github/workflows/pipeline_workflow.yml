@@ -172,7 +172,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mvn clean verify \
-            --show-version --errors --batch-mode \
             -T 4
 
       - name: Run unit tests automatically
@@ -182,7 +181,6 @@ jobs:
 #          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
         run: |
           mvn clean verify 
-            --show-version --errors --batch-mode \
             -T 1C \
 
 #      - name: Zip Reports for Upload
