@@ -62,24 +62,21 @@ jobs:
 #          username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
 #          password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
 
-      - name: Build Tag and push Docker Image
-        env:
-          IMAGE_NAME: deploydemo.jfrog.io/docker/jfrog-docker-example-image:${{ github.run_number }}
+      - name: Create tag version
+        id: tag-version
         run: |
-          jf docker build -t $IMAGE_NAME .
-          jf docker push $IMAGE_NAME
+          SHA=$(echo "${{ needs.setup-job.outputs.head-sha }}-$(uuidgen)" | sha1sum)
+          DATE=$(date +%Y-%m-%d)
+          echo "tag=v${DATE}-$(echo $SHA | cut -c1-4)" >> $GITHUB_OUTPUT
 
-      - name: Publish Build info With JFrog CLI
-        env:
-          # Generated and maintained by GitHub
-          JFROG_CLI_BUILD_NAME: jfrog-docker-build-example
-          # JFrog organization secret
-          JFROG_CLI_BUILD_NUMBER : ${{ github.run_number }}
+      - name: Build project, create docker image and publish to artifactory
+        shell: bash
         run: |
-          # Export the build name and build nuber
-          # Collect environment variables for the build
-          jf rt build-collect-env
-          # Collect VCS details from git and add them to the build
-          jf rt build-add-git
-          # Publish build info
-          jf rt build-publish
+          set -ueo pipefail
+          [[ "${{ steps.settings.outputs.verbose }}" == "true" ]] && set -ueox pipefail
+          mvn --batch-mode clean install
+          mvn -X --debug jib:build \
+            -Djib.skip=false \
+            -Djib.from.image=bandwidth-docker.jfrog.io/library/eclipse-temurin:17 \
+            -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
+            -pl 'microservice1, microservice2'
