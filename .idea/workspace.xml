@@ -242,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698561821190</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698561873770</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1698561873770</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

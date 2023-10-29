@@ -13,11 +13,7 @@
 
   <name>deploy-demo</name>
   <description>Parent project</description>
-  <url>http://maven.apache.org</url>
 
-  <artifactory.repo.url>https://deploydemo.jfrog.io/docker</artifactory.repo.url>
-  <docker.registry>bandwidth-docker.jfrog.io</docker.registry>
-  <docker.repo>messaging</docker.repo>
-  <image.version>dev</image.version>
+  <artifactory.repo.url>https://deploydemo.jfrog.io/artifactory/api/docker/deploy-demo123-deploy-demo123-docker</artifactory.repo.url>
 
 </project>
