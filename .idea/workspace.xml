@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <change afterPath="$PROJECT_DIR$/microservice1/src/main/resources/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice2/src/main/java/com/example/microservice2/controller/Microservice2Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice2/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/src/main/java/com/example/microservice1/controller/Microservice1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/src/main/java/com/example/microservice1/controller/Microservice1Controller.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,17 +42,22 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/.github/workflows",
+    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/microservice2/src/main/resources/templates",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/microservice2/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/.github/workflows" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -52,7 +65,12 @@
       <recent name="$PROJECT_DIR$/microservice1" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Compound.Run-All-Microservices">
+    <configuration name="Run-All-Microservices" type="CompoundRunConfigurationType">
+      <toRun name="Microservice1Application" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Microservice2Application" type="SpringBootApplicationConfigurationType" />
+      <method v="2" />
+    </configuration>
     <configuration name="Microservice1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="microservice1" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.microservice1.Microservice1Application" />
@@ -60,17 +78,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Microservice2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="microservice2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.microservice2.Microservice2Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Dockerfile: Compose Deployment" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
+          <option name="containerName" value="" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Compound.Run-All-Microservices" />
+      <item itemvalue="Docker.Dockerfile: Compose Deployment" />
+      <item itemvalue="Spring Boot.Microservice1Application" />
+      <item itemvalue="Spring Boot.Microservice2Application" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.microservice1/Dockerfile: Compose Deployment" />
+        <item itemvalue="Docker.Dockerfile: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -252,7 +284,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698562739959</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698562969971</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1698562969971</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698563119415</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1698563119416</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
