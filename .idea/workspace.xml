@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implemented new microservice" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -297,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698564318166</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="trying to fix publishing to artifactory">
+      <created>1698564525439</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1698564525439</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,7 +330,8 @@
     <MESSAGE value="fixing pipeline_workflow.yml" />
     <MESSAGE value="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
     <MESSAGE value="implemented new microservice" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented new microservice" />
+    <MESSAGE value="trying to fix publishing to artifactory" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to fix publishing to artifactory" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
