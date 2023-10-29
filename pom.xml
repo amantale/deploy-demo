@@ -15,4 +15,9 @@
   <description>Parent project</description>
   <url>http://maven.apache.org</url>
 
+  <artifactory.repo.url>https://deploydemo.jfrog.io/docker</artifactory.repo.url>
+  <docker.registry>bandwidth-docker.jfrog.io</docker.registry>
+  <docker.repo>messaging</docker.repo>
+  <image.version>dev</image.version>
+
 </project>
