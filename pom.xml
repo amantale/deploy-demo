@@ -16,4 +16,73 @@
   <description>Parent project</description>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <docker.registry>http://deploydemo.jfrog.io</docker.registry>
+    <docker.repo>docker</docker.repo>
+
+    <!-- to enable jib for CI builds (or testing): -Djib.skip -->
+    <jib.skip>true</jib.skip>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>3.3.2</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <from>
+              <image>${docker.registry}/library/eclipse-temurin:17</image>
+              <auth>
+                <!-- only meant to be used in CI environments, settings.xml creds can be used locally -->
+                <username>${env.ARTIFACTORY_AUTH_USR}</username>
+                <password>${env.ARTIFACTORY_AUTH_PSW}</password>
+              </auth>
+            </from>
+            <to>
+              <image>${docker.registry}/${docker.repo}/${project.artifactId}:${image.version}</image>
+              <auth>
+                <!-- only meant to be used in CI environments, settings.xml creds can be used locally -->
+                <username>${env.ARTIFACTORY_AUTH_USR}</username>
+                <password>${env.ARTIFACTORY_AUTH_PSW}</password>
+              </auth>
+            </to>
+            <container>
+              <jvmFlags>
+                <jvmFlag>-XX:+ExitOnOutOfMemoryError</jvmFlag>
+                <jvmFlag>-XX:+UnlockExperimentalVMOptions</jvmFlag>
+                <jvmFlag>-XX:+UseZGC</jvmFlag>
+                <jvmFlag>-XX:MinRAMPercentage=50</jvmFlag>
+                <jvmFlag>-XX:MaxRAMPercentage=50</jvmFlag>
+                <jvmFlag>-XX:+PrintFlagsFinal</jvmFlag>
+                <jvmFlag>-XX:MaxJavaStackTraceDepth=0</jvmFlag>
+                <jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
+                <jvmFlag>-Dsun.net.inetaddr.ttl=0</jvmFlag>
+              </jvmFlags>
+              <ports>
+                <!-- TODO: expand this -->
+                <port>8080</port>
+                <port>8443</port>
+              </ports>
+            </container>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+    <plugins>
+
+
+    </plugins>
+  </build>
+
 </project>

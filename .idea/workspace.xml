@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish_artifactory.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -44,7 +52,8 @@
     "jdk.selected.JAVA_MODULE": "corretto-17",
     "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/microservice2/src/main/resources/templates",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -107,6 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1698472093792</updated>
       <workItem from="1698472095403" duration="2433000" />
+      <workItem from="1698591993333" duration="1093000" />
     </task>
     <task id="LOCAL-00001" summary="initial creation of the first microservice">
       <created>1698472506253</created>
@@ -318,7 +328,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698564961192</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="trying to fix publishing to artifactory">
+      <created>1698565025796</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1698565025797</updated>
+    </task>
+    <task id="LOCAL-00032" summary="trying to fix publishing to artifactory">
+      <created>1698565127943</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1698565127943</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
