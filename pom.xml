@@ -19,6 +19,7 @@
   <properties>
     <docker.registry>http://deploydemo.jfrog.io</docker.registry>
     <docker.repo>docker</docker.repo>
+    <image.version>1.0</image.version>
 
     <!-- to enable jib for CI builds (or testing): -Djib.skip -->
     <jib.skip>true</jib.skip>
