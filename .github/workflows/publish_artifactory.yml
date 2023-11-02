@@ -37,14 +37,14 @@ jobs:
         shell: bash
         run: |
           echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
-          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}" >> $GITHUB_ENV
 
       - name: Login to Docker registry
         uses: docker/login-action@v2
         with:
           registry: http://deploydemo.jfrog.io/docker/deoloy-demo
           username: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
-          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
 
       - name: Create tag version
         id: tag-version

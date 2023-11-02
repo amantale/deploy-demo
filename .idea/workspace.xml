@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory">
-      <change afterPath="$PROJECT_DIR$/microservice1/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +124,7 @@
       <workItem from="1698591993333" duration="1602000" />
       <workItem from="1698773443174" duration="1236000" />
       <workItem from="1698869187034" duration="1829000" />
-      <workItem from="1698953847871" duration="5295000" />
+      <workItem from="1698953847871" duration="5629000" />
     </task>
     <task id="LOCAL-00001" summary="initial creation of the first microservice">
       <created>1698472506253</created>
@@ -430,7 +427,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698958338725</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="trying to fix publishing to artifactory">
+      <created>1698959397769</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959397770</updated>
+    </task>
+    <task id="LOCAL-00045" summary="trying to fix publishing to artifactory">
+      <created>1698959591531</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959591531</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
