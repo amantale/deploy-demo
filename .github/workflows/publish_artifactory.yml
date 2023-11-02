@@ -28,8 +28,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           server-id: artifactory
-          server-username: ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME
-          server-password: ARTIFACTORY_ACCESS_READ_TOKEN
+          server-username: ${{ secrets.ARTIFACTORY_AUTH_USR }}
+          server-password: ${{ secrets.ARTIFACTORY_AUTH_PSW }}
           cache: 'maven'
 
 
@@ -38,6 +38,13 @@ jobs:
         run: |
           echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
           echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Login to Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: bandwidth-docker.jfrog.io
+          username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
 
       - name: Create tag version
         id: tag-version
