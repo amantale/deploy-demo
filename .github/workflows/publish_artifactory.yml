@@ -42,7 +42,7 @@ jobs:
       - name: Login to Docker registry
         uses: docker/login-action@v2
         with:
-          registry: bandwidth-docker.jfrog.io
+          registry: http://deploydemo.jfrog.io
           username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
           password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
 
