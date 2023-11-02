@@ -53,7 +53,8 @@ jobs:
           [[ "${{ steps.settings.outputs.verbose }}" == "true" ]] && set -ueox pipefail
           mvn --batch-mode clean install
           mvn -X --debug jib:build \
-            -Djib.skip=false \
-            -Djib.from.image=eclipse-temurin:17 \
-            -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
-            -pl 'microservice1, microservice2'
+          -Djib.skip=false \
+          -Djib.from.image=http://deploydemo.jfrog.io/library/eclipse-temurin:17 \
+          -Ddocker.repo=deploy-demo \
+          -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
+          -pl 'microservice1,microservice2'
