@@ -64,4 +64,4 @@ jobs:
           -Djib.from.image=deploydemo.jfrog.io/docker/eclipse-temurin:17  \
           -Ddocker.repo=deploy-demo \
           -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
-          -pl 'microservice1,microservice2'
+          -Dimage=microservice1
