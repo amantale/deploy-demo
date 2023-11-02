@@ -56,5 +56,5 @@ jobs:
           -Djib.skip=false \
           -Djib.from.image=http://deploydemo.jfrog.io/library/eclipse-temurin:17 \
           -Ddocker.repo=deploy-demo \
-          -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
+          -Dimage.version=1.0 \
           -pl 'microservice1,microservice2'

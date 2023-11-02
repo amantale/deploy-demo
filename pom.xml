@@ -70,7 +70,6 @@
                 <jvmFlag>-Dsun.net.inetaddr.ttl=0</jvmFlag>
               </jvmFlags>
               <ports>
-                <!-- TODO: expand this -->
                 <port>8080</port>
                 <port>8443</port>
               </ports>
