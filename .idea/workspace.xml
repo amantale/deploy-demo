@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory">
+      <change afterPath="$PROJECT_DIR$/microservice1/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +64,7 @@
       <recent name="$PROJECT_DIR$/microservice1" />
     </key>
   </component>
-  <component name="RunManager" selected="Compound.Run-All-Microservices">
+  <component name="RunManager" selected="Docker.microservice1/Dockerfile">
     <configuration name="Run-All-Microservices" type="CompoundRunConfigurationType">
       <toRun name="Microservice1Application" type="SpringBootApplicationConfigurationType" />
       <toRun name="Microservice2Application" type="SpringBootApplicationConfigurationType" />
@@ -90,14 +93,24 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="microservice1/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="microservice1/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Compound.Run-All-Microservices" />
+      <item itemvalue="Docker.microservice1/Dockerfile" />
       <item itemvalue="Docker.Dockerfile: Compose Deployment" />
       <item itemvalue="Spring Boot.Microservice1Application" />
       <item itemvalue="Spring Boot.Microservice2Application" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.microservice1/Dockerfile" />
         <item itemvalue="Docker.Dockerfile: Compose Deployment" />
       </list>
     </recent_temporary>
@@ -114,7 +127,7 @@
       <workItem from="1698591993333" duration="1602000" />
       <workItem from="1698773443174" duration="1236000" />
       <workItem from="1698869187034" duration="1829000" />
-      <workItem from="1698953847871" duration="4327000" />
+      <workItem from="1698953847871" duration="5295000" />
     </task>
     <task id="LOCAL-00001" summary="initial creation of the first microservice">
       <created>1698472506253</created>
@@ -410,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698958183105</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="trying to fix publishing to artifactory">
+      <created>1698958338724</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1698958338725</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
