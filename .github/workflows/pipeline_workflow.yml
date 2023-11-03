@@ -151,6 +151,7 @@ jobs:
   package-artifactory:
     name: Build and Publish
     needs: [ setup-job ]
+    runs-on: ubuntu-latest
     steps:
       - name: Run publish to artifactory pipeline
         id: publish-to-artifactory
