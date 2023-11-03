@@ -19,7 +19,7 @@ jobs:
   setup-job:
     name: Setup
     if: github.event.pull_request.draft != true
-    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    runs-on: ubuntu-latest
     outputs:
       project-branch: ${{ steps.project-branch.outputs.name }}
       is-pr: ${{ steps.is-pr.outputs.value }}
@@ -30,47 +30,6 @@ jobs:
       run-type: ${{ steps.run-type.outputs.type }}
 
     steps:
-      - name: Get project branch name
-        id: project-branch
-        run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
-
-      - name: Determine if pr
-        id: is-pr
-        run: echo "value=${{ github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
-
-      - name: Determine base-ref
-        id: base
-        if: steps.is-pr.outputs.value == 'true'
-        run: |
-          echo "sha=${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}" >> $GITHUB_OUTPUT
-          echo "ref=${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}" >> $GITHUB_OUTPUT
-
-      - name: Determine head-sha
-        id: head
-        if: steps.is-pr.outputs.value == 'true'
-        run: |
-          echo "sha=${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}" >> $GITHUB_OUTPUT
-
-      - name: Match PR number from branch name
-        id: find-pr-from-branch
-        uses: MeilCli/regex-match@v1.5.27
-        if: github.event_name == 'pull_request'
-        with:
-          search_string: ${{ steps.project-branch.outputs.name }}
-          regex_pattern: '.*/pr-(\d+)-.*'
-
-      - name: Extract PR number from match
-        id: extract-pr
-        if: github.event_name == 'pull_request'
-        run: |
-          echo '${{ steps.find-pr-from-branch.outputs.matched_json }}'
-          echo pr=$(echo '${{ steps.find-pr-from-branch.outputs.matched_json }}' | jq -r 'nth(1)') >> $GITHUB_OUTPUT
-
-      - name: Set PR number
-        id: pr-number
-        run: |
-          echo "value=${{ github.event_name == 'pull_request' && github.event.pull_request.number || steps.extract-pr.outputs.pr }}" >> $GITHUB_OUTPUT 
-
       - name: Determine run type
         id: run-type
         shell: bash
@@ -97,12 +56,48 @@ jobs:
           echo "::error::Unknown event."
           exit 1
 
+      - name: Determine if pr
+        id: is-pr
+        run: echo "value=${{ github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
+
+      - name: Determine base-ref
+        id: base
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}" >> $GITHUB_OUTPUT
+          echo "ref=${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}" >> $GITHUB_OUTPUT
+
+      - name: Determine head-sha
+        id: head
+        if: steps.is-pr.outputs.value == 'true'
+        run: |
+          echo "sha=${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v3
 
-      - name: Get argo branch name
+      - name: Get project branch name
         id: project-branch
         run: echo "name=${{ steps.is-pr.outputs.value == 'true' && github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
 
+      - name: Match PR number from branch name
+        id: find-pr-from-branch
+        uses: MeilCli/regex-match@v1.5.27
+        if: github.event_name == 'pull_request'
+        with:
+          search_string: ${{ steps.project-branch.outputs.name }}
+          regex_pattern: '.*/pr-(\d+)-.*'
+
+      - name: Extract PR number from match
+        id: extract-pr
+        if: github.event_name == 'pull_request'
+        run: |
+          echo '${{ steps.find-pr-from-branch.outputs.matched_json }}'
+          echo pr=$(echo '${{ steps.find-pr-from-branch.outputs.matched_json }}' | jq -r 'nth(1)') >> $GITHUB_OUTPUT
+
+      - name: Set PR number
+        id: pr-number
+        run: |
+          echo "value=${{ github.event_name == 'pull_request' && github.event.pull_request.number || steps.extract-pr.outputs.pr }}" >> $GITHUB_OUTPUT 
 
       - name: Create job summary
         run: |
@@ -117,9 +112,9 @@ jobs:
           echo "| pr key | ${{steps.pr-number.outputs.value}} |" >> $GITHUB_STEP_SUMMARY
 
   unit-tests:
-    name: Unit Tests, Sonar
+    name: Unit Tests
     needs: [ setup-job ]
-    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
@@ -140,10 +135,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Artifactory access token
-        uses: Bandwidth/vault-provider-action@v1
-        with:
-          artifactory-access-token-type: readers
+#      - name: Get Artifactory access token
+#        uses: Bandwidth/vault-provider-action@v1
+#        with:
+#          artifactory-access-token-type: readers
 #
 #      - name: Get Sonar access token
 #        if: needs.setup-job.outputs.run-type != 'manual'
@@ -176,19 +171,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn clean verify \
-            --show-version --errors --batch-mode \
-            -T 4
+          mvn clean verify
 
       - name: Run unit tests automatically
         if: needs.setup-job.outputs.run-type != 'manual'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
+#          SONAR_TOKEN: ${{ env.SONARCLOUD_TOKEN }}
         run: |
           mvn clean verify 
-            --show-version --errors --batch-mode \
-            -T 1C \
 
 #      - name: Zip Reports for Upload
 #        if: always()
@@ -631,7 +622,7 @@ jobs:
 
 #  evaluate-and-notify:
 #    if: always()
-#    runs-on: ${{ fromJSON(vars.SWI_GLORG_UBUNTU_2204) }}
+#    runs-on: ubuntu-latest
 #    needs:
 #      - setup-job
 #      - unit-tests
@@ -662,11 +653,11 @@ jobs:
 #          slack-bot-token: ${{ secrets.MSG_GHA_SLACKBOT }}
 #          slack-channel: ${{ secrets.MESSAGING_NOTIFY_GHA }}
 
-  promote-images:
-    if: needs.setup-job.outputs.run-type == 'ci' && (needs.setup-job.outputs.base-ref == 'master' || startsWith(needs.setup-job.outputs.base-ref, 'hotfix/'))
-    name: Promotes images from dev to prod Artifactory
-    needs: [ setup-job, unit-tests, package-artifactory ]
-    uses: ./.github/workflows/promote_artifactory.yml
-    with:
-      application_version_tag: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
-    secrets: inherit
+#  promote-images:
+#    if: needs.setup-job.outputs.run-type == 'ci' && (needs.setup-job.outputs.base-ref == 'master' || startsWith(needs.setup-job.outputs.base-ref, 'hotfix/'))
+#    name: Promotes images from dev to prod Artifactory
+#    needs: [ setup-job, unit-tests, package-artifactory ]
+#    uses: ./.github/workflows/promote_artifactory.yml
+#    with:
+#      application_version_tag: ${{ needs.package-artifactory.outputs.artifactory-version-tag }}
+#    secrets: inherit

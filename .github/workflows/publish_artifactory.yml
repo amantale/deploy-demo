@@ -12,16 +12,15 @@ on:
 jobs:
   package_artifactory:
     name: Build and Publish
-    runs-on: ${{ fromJSON(vars.SWI_ENG_ORG_LAB_UBUNTU_2204_USE1) }}
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    outputs:
-      artifactory-version-tag: ${{ steps.tag-version.outputs.tag }}
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        env:
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
 
       - name: Set up TemurinJDK 17
         uses: actions/setup-java@v3
@@ -33,28 +32,20 @@ jobs:
           server-password: ARTIFACTORY_ACCESS_READ_TOKEN
           cache: 'maven'
 
-      - name: Get Artifactory Read Access Token
-        uses: Bandwidth/vault-provider-action@v1
-        with:
-          artifactory-access-token-type: readers
 
-      - name: Outputs reader token
+      - name: Outputs reader token token
         shell: bash
         run: |
-          echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
-          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ env.ARTIFACTORY_ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}" >> $GITHUB_ENV
 
-      - name: Get Artifactory Write Access Token
-        uses: Bandwidth/vault-provider-action@v1
-        with:
-          artifactory-access-token-type: "dev-writers"
 
       - name: Login to Docker registry
         uses: docker/login-action@v2
         with:
-          registry: bandwidth-docker.jfrog.io
-          username: ${{ env.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
-          password: ${{ env.ARTIFACTORY_ACCESS_TOKEN }}
+          registry: http://deploydemo.jfrog.io/docker/deoloy-demo
+          username: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
 
       - name: Create tag version
         id: tag-version
@@ -65,14 +56,16 @@ jobs:
 
       - name: Build project, create docker image and publish to artifactory
         shell: bash
+        env:
+          ARTIFACTORY_AUTH_USR: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          ARTIFACTORY_AUTH_PSW: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
         run: |
           set -ueo pipefail
           [[ "${{ steps.settings.outputs.verbose }}" == "true" ]] && set -ueox pipefail
-          mvn --batch-mode clean install -DskipTests=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error
-          mvn jib:build \
-            -DskipTests=true \
-            -Djib.skip=false \
-            -Djib.from.image=bandwidth-docker.jfrog.io/library/eclipse-temurin:17 \
-            -Ddocker.repo=argo \
-            -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
-            -pl 'smpp-gateway,sqs-gateway,concatenator,correlator,kafka-relay,processor,router,openmarket-gateway,mms-gateway,oneapi-gateway,harpy/fake-smpp-upstream,harpy/fake-smpp-client,harpy/fake-mm4-upstream,harpy/test-driver,harpy/http-simulator'
+          mvn --batch-mode clean install
+          mvn -X --debug jib:build \
+          -Djib.skip=false \
+          -Djib.from.image=deploydemo.jfrog.io/docker/eclipse-temurin:17  \
+          -Ddocker.repo=deploy-demo \
+          -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
+          -pl 'microservice1,microservice2'

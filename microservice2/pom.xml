@@ -8,10 +8,10 @@
         <artifactId>deploy-demo</artifactId>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>microservice1</artifactId>
+    <artifactId>microservice2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservice1</name>
-    <description>microservice1</description>
+    <name>microservice2</name>
+    <description>microservice2</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -20,6 +20,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,6 +41,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.0.13</version>
         </dependency>
     </dependencies>
 

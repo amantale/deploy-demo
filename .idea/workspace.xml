@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="initial commit to fix integration with artifactory">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix publishing to artifactory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +28,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
@@ -35,18 +40,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/.github/workflows&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/microservice2/src/main/resources/templates",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Shell Script"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/microservice2/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/.github/workflows" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -54,7 +71,12 @@
       <recent name="$PROJECT_DIR$/microservice1" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.microservice1/Dockerfile">
+    <configuration name="Run-All-Microservices" type="CompoundRunConfigurationType">
+      <toRun name="Microservice1Application" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Microservice2Application" type="SpringBootApplicationConfigurationType" />
+      <method v="2" />
+    </configuration>
     <configuration name="Microservice1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="microservice1" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.microservice1.Microservice1Application" />
@@ -62,17 +84,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Microservice2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="microservice2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.microservice2.Microservice2Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Dockerfile: Compose Deployment" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
+          <option name="containerName" value="" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="microservice1/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="microservice1/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Compound.Run-All-Microservices" />
+      <item itemvalue="Docker.microservice1/Dockerfile" />
+      <item itemvalue="Docker.Dockerfile: Compose Deployment" />
+      <item itemvalue="Spring Boot.Microservice1Application" />
+      <item itemvalue="Spring Boot.Microservice2Application" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.microservice1/Dockerfile: Compose Deployment" />
+        <item itemvalue="Docker.microservice1/Dockerfile" />
+        <item itemvalue="Docker.Dockerfile: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -85,13 +131,11 @@
       <option name="presentableId" value="Default" />
       <updated>1698472093792</updated>
       <workItem from="1698472095403" duration="2433000" />
-    </task>
-    <task id="LOCAL-00001" summary="initial creation of the first microservice">
-      <created>1698472506253</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1698472506253</updated>
+      <workItem from="1698591993333" duration="1602000" />
+      <workItem from="1698773443174" duration="1236000" />
+      <workItem from="1698869187034" duration="1829000" />
+      <workItem from="1698953847871" duration="6463000" />
+      <workItem from="1699024407479" duration="3012000" />
     </task>
     <task id="LOCAL-00002" summary="initial commit to fix integration with artifactory">
       <created>1698475165156</created>
@@ -100,7 +144,343 @@
       <option name="project" value="LOCAL" />
       <updated>1698475165156</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added ubuntu-latest instead of gha runner">
+      <created>1698478277637</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478277638</updated>
+    </task>
+    <task id="LOCAL-00004" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
+      <created>1698478427667</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478427667</updated>
+    </task>
+    <task id="LOCAL-00005" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
+      <created>1698478724609</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478724609</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added missing workflow">
+      <created>1698478979426</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698478979426</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fixing pipeline_workflow.yml">
+      <created>1698479285223</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698479285223</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fixing pipeline_workflow.yml">
+      <created>1698505043510</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505043510</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixing pipeline_workflow.yml">
+      <created>1698505193673</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505193674</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698505548765</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505548766</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698505675049</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505675049</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698505738116</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698505738116</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506005260</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506005260</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506216931</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506216931</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506606037</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506606037</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506805805</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506805805</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698506893710</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1698506893711</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698507047290</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1698507047290</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698507579402</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1698507579402</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698560471010</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1698560471010</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698560799720</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1698560799720</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698561821190</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1698561821190</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698561873770</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1698561873770</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698562739959</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1698562739959</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698562969971</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1698562969971</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
+      <created>1698563119415</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1698563119416</updated>
+    </task>
+    <task id="LOCAL-00027" summary="implemented new microservice">
+      <created>1698564318166</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1698564318166</updated>
+    </task>
+    <task id="LOCAL-00028" summary="trying to fix publishing to artifactory">
+      <created>1698564525439</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1698564525439</updated>
+    </task>
+    <task id="LOCAL-00029" summary="trying to fix publishing to artifactory">
+      <created>1698564873992</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1698564873993</updated>
+    </task>
+    <task id="LOCAL-00030" summary="trying to fix publishing to artifactory">
+      <created>1698564961192</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1698564961192</updated>
+    </task>
+    <task id="LOCAL-00031" summary="trying to fix publishing to artifactory">
+      <created>1698565025796</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1698565025797</updated>
+    </task>
+    <task id="LOCAL-00032" summary="trying to fix publishing to artifactory">
+      <created>1698565127943</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1698565127943</updated>
+    </task>
+    <task id="LOCAL-00033" summary="trying to fix publishing to artifactory">
+      <created>1698642292841</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1698642292841</updated>
+    </task>
+    <task id="LOCAL-00034" summary="trying to fix publishing to artifactory">
+      <created>1698773482720</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1698773482721</updated>
+    </task>
+    <task id="LOCAL-00035" summary="trying to fix publishing to artifactory">
+      <created>1698869615813</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1698869615813</updated>
+    </task>
+    <task id="LOCAL-00036" summary="trying to fix publishing to artifactory">
+      <created>1698954401639</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1698954401639</updated>
+    </task>
+    <task id="LOCAL-00037" summary="trying to fix publishing to artifactory">
+      <created>1698957256029</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1698957256030</updated>
+    </task>
+    <task id="LOCAL-00038" summary="trying to fix publishing to artifactory">
+      <created>1698957596085</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1698957596085</updated>
+    </task>
+    <task id="LOCAL-00039" summary="trying to fix publishing to artifactory">
+      <created>1698957897149</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1698957897149</updated>
+    </task>
+    <task id="LOCAL-00040" summary="trying to fix publishing to artifactory">
+      <created>1698957982308</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1698957982309</updated>
+    </task>
+    <task id="LOCAL-00041" summary="trying to fix publishing to artifactory">
+      <created>1698958067304</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1698958067304</updated>
+    </task>
+    <task id="LOCAL-00042" summary="trying to fix publishing to artifactory">
+      <created>1698958183105</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1698958183105</updated>
+    </task>
+    <task id="LOCAL-00043" summary="trying to fix publishing to artifactory">
+      <created>1698958338724</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1698958338725</updated>
+    </task>
+    <task id="LOCAL-00044" summary="trying to fix publishing to artifactory">
+      <created>1698959397769</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959397770</updated>
+    </task>
+    <task id="LOCAL-00045" summary="trying to fix publishing to artifactory">
+      <created>1698959591531</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959591531</updated>
+    </task>
+    <task id="LOCAL-00046" summary="trying to fix publishing to artifactory">
+      <created>1698959820930</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959820931</updated>
+    </task>
+    <task id="LOCAL-00047" summary="trying to fix publishing to artifactory">
+      <created>1698959876369</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959876369</updated>
+    </task>
+    <task id="LOCAL-00048" summary="trying to fix publishing to artifactory">
+      <created>1698959971628</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1698959971629</updated>
+    </task>
+    <task id="LOCAL-00049" summary="trying to fix publishing to artifactory">
+      <created>1699025127930</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1699025127930</updated>
+    </task>
+    <task id="LOCAL-00050" summary="trying to fix publishing to artifactory">
+      <created>1699025156343</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1699025156343</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +500,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial creation of the first microservice" />
     <MESSAGE value="initial commit to fix integration with artifactory" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit to fix integration with artifactory" />
+    <MESSAGE value="added ubuntu-latest instead of gha runner" />
+    <MESSAGE value="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml" />
+    <MESSAGE value="added missing workflow" />
+    <MESSAGE value="fixing pipeline_workflow.yml" />
+    <MESSAGE value="fixing pipeline_workflow.yml by fixing publish_artifactory.yml" />
+    <MESSAGE value="implemented new microservice" />
+    <MESSAGE value="trying to fix publishing to artifactory" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to fix publishing to artifactory" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
