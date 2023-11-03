@@ -153,6 +153,7 @@ package-artifactory:
   needs: [ setup-job ]
   steps:
     - name: Run publish to artifactory pipeline
+      id: publish-to-artifactory
       uses: ./.github/workflows/publish_artifactory.yml
       secrets: inherit
 
@@ -160,4 +161,4 @@ package-artifactory:
       run: |
         echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
         echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
-        echo "| Artifactory Image Tag | ${{ needs.package-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Artifactory Image Tag | ${{ needs.publish-to-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY

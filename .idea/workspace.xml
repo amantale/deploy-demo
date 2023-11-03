@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implemented script to run docker images locally">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
-    </list>
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing PR summary" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,13 +131,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00004" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
-      <created>1698478427667</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1698478427667</updated>
     </task>
     <task id="LOCAL-00005" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
       <created>1698478724609</created>
@@ -477,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699040119569</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="fixing PR summary">
+      <created>1699040472842</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1699040472843</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,7 +504,8 @@
     <MESSAGE value="trying to fix publishing to artifactory" />
     <MESSAGE value="starting to work on starting docker images locally" />
     <MESSAGE value="implemented script to run docker images locally" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented script to run docker images locally" />
+    <MESSAGE value="fixing PR summary" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing PR summary" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
