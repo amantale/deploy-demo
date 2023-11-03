@@ -39,10 +39,6 @@ jobs:
           echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
           echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}" >> $GITHUB_ENV
 
-      - name: Get Artifactory Write Access Token
-        uses: Bandwidth/vault-provider-action@v1
-        with:
-          artifactory-access-token-type: "dev-writers"
 
       - name: Login to Docker registry
         uses: docker/login-action@v2
