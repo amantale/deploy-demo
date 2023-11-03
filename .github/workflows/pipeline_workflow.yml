@@ -148,17 +148,17 @@ jobs:
         run: |
           mvn clean verify 
 
-package-artifactory:
-  name: Build and Publish
-  needs: [ setup-job ]
-  steps:
-    - name: Run publish to artifactory pipeline
-      id: publish-to-artifactory
-      uses: ./.github/workflows/publish_artifactory.yml
-      secrets: inherit
+  package-artifactory:
+    name: Build and Publish
+    needs: [ setup-job ]
+    steps:
+      - name: Run publish to artifactory pipeline
+        id: publish-to-artifactory
+        uses: ./.github/workflows/publish_artifactory.yml
+        secrets: inherit
 
-    - name: Create workflow summary
-      run: |
-        echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
-        echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
-        echo "| Artifactory Image Tag | ${{ needs.publish-to-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY
+      - name: Create workflow summary
+        run: |
+          echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Artifactory Image Tag | ${{ needs.publish-to-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY
