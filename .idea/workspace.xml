@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="starting to work on starting docker images locally">
-      <change afterPath="$PROJECT_DIR$/start_microservices.sh" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implemented script to run docker images locally">
       <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploydemo.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start_deploydemo.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,13 +133,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00003" summary="added ubuntu-latest instead of gha runner">
-      <created>1698478277637</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1698478277638</updated>
     </task>
     <task id="LOCAL-00004" summary="trying to fix issue why publish_artifactory is not seen by pipeline_workflow.yml">
       <created>1698478427667</created>
@@ -480,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699028802123</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="implemented script to run docker images locally">
+      <created>1699040119568</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1699040119569</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +505,8 @@
     <MESSAGE value="implemented new microservice" />
     <MESSAGE value="trying to fix publishing to artifactory" />
     <MESSAGE value="starting to work on starting docker images locally" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting to work on starting docker images locally" />
+    <MESSAGE value="implemented script to run docker images locally" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented script to run docker images locally" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
