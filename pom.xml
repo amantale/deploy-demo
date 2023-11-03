@@ -85,4 +85,17 @@
     </plugins>
   </build>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>microservice1</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>microservice2</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
 </project>

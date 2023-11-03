@@ -33,11 +33,16 @@ jobs:
           cache: 'maven'
 
 
-      - name: Outputs reader and writer token token
+      - name: Outputs reader token token
         shell: bash
         run: |
           echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
           echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}" >> $GITHUB_ENV
+
+      - name: Get Artifactory Write Access Token
+        uses: Bandwidth/vault-provider-action@v1
+        with:
+          artifactory-access-token-type: "dev-writers"
 
       - name: Login to Docker registry
         uses: docker/login-action@v2
@@ -55,6 +60,9 @@ jobs:
 
       - name: Build project, create docker image and publish to artifactory
         shell: bash
+        env:
+          ARTIFACTORY_AUTH_USR: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          ARTIFACTORY_AUTH_PSW: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
         run: |
           set -ueo pipefail
           [[ "${{ steps.settings.outputs.verbose }}" == "true" ]] && set -ueox pipefail
@@ -64,4 +72,4 @@ jobs:
           -Djib.from.image=deploydemo.jfrog.io/docker/eclipse-temurin:17  \
           -Ddocker.repo=deploy-demo \
           -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
-          -Dimage=microservice1
+          -pl 'microservice1,microservice2'
