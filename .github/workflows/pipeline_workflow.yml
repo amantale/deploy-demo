@@ -156,6 +156,7 @@ jobs:
 
   final-summary:
     name: Final Summary
+    needs: [ setup-job, package-artifactory ]
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
