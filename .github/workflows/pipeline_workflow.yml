@@ -156,7 +156,7 @@ jobs:
       - name: Run publish to artifactory pipeline
         id: publish-to-artifactory
         uses: ./.github/workflows/publish_artifactory.yml
-        secrets: inherit
+#        secrets: inherit
 
       - name: Create workflow summary
         run: |

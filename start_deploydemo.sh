@@ -61,6 +61,7 @@ start() {
 }
 
 stop() {
+  echo "Stopping the services"
   docker rm --force microservice1
   docker rm --force microservice2
 }
