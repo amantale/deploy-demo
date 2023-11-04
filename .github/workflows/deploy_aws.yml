@@ -178,7 +178,7 @@ jobs:
       - name: Checking if docker image exist
         if: ${{ inputs.ring == 'lab' }}
         run: |
-          if (( $(jf rt s "docker/deploy-demo/microservice1/${{ steps.trim-export.outputs.application_version_tag }}/*" --count) ==  0 )); then
+          if (( $(jf rt s "deploydemo.jfrog.io/docker/microservice1/${{ steps.trim-export.outputs.application_version_tag }}/*" --count) ==  0 )); then
             echo "ERROR: Tag ${{ steps.trim-export.outputs.application_version_tag }} not found in JFrog"
           exit 1
           else

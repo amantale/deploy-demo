@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_deploydemo.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start_deploydemo.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,13 +136,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00013" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698506005260</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1698506005260</updated>
     </task>
     <task id="LOCAL-00014" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
       <created>1698506216931</created>
@@ -477,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699082970633</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699083187477</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1699083187477</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
