@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_deploydemo.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start_deploydemo.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,13 +135,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00014" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698506216931</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1698506216931</updated>
     </task>
     <task id="LOCAL-00015" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
       <created>1698506606037</created>
@@ -480,7 +472,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699083187477</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699083417073</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1699083417073</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
