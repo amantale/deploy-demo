@@ -1,0 +1,28 @@
+name: AWS Login
+description: Logs in to the appropriate AWS account, choosing between lab vs prod, ENG vs GLORG, US vs EU. You must set up Python before calling this action.
+
+inputs:
+  ring:
+    description: "lab, uat, or prod"
+    required: true
+  region:
+    description: "eu_central, eu_west, east, or west"
+    required: true
+  okta-app-url:
+    description: "The Okta AWS app URL to use to log in to the AWS account"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate Inputs
+      shell: bash
+      run: |
+        [[ "${{ inputs.ring }}" =~ ^(lab|uat|prod)$ ]] || (echo "::error::Invalid ring '${{ inputs.ring }}'"; exit 1)
+        [[ "${{ inputs.region }}" =~ ^(eu_central|eu_west|east|west)$ ]] || (echo "::error::Invalid region '${{ inputs.region }}'"; exit 1)
+        [[ "${{ inputs.okta-app-url }}" ]] || (echo "::error::okta-app-url argument not given"; exit 1)
+
+    - name: Login to AWS
+      shell: bash
+      run: |
+        echo "Logged in to AWS"

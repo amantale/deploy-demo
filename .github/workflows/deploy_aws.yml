@@ -1,0 +1,211 @@
+name: Deploy
+run-name: "Deploy ${{ inputs.application_version_tag || github.ref_name }} to ${{ inputs.ring == 'lab' && inputs.user_env_name || inputs.ring }}/${{ inputs.region }}"
+on:
+  workflow_dispatch:
+    inputs:
+      ring:
+        type: choice
+        description: Ring
+        # Warning: these options are tied to lab, uat, and prod GitHub environments. If you change these options, you must also change the environments in GitHub
+        options:
+          - lab
+          - uat
+          - prod
+        default: dev
+        required: true
+      region:
+        type: choice
+        description: Region
+        options:
+          - eu_central
+          - eu_west
+          - east
+          - west
+        default: eu_central
+        required: true
+      user_env_name:
+        type: string
+        description: Username/env name (lab only, required for lab)
+        required: false
+      application_version_tag:
+        type: string
+        description: "Override Artifactory Tag (lab only, defaults to git tag)"
+        required: false
+      enable_datadog:
+        type: boolean
+        description: Enable DataDog (lab only)
+        default: false
+      team_name:
+        type: choice
+        # The team_name isn't really lab only, but right now, we don't care how stuff gets attributed in prod and attributing it to Nera is fine
+        description: Team Name (lab only, ignored if DD is disabled)
+        options:
+          - software-infrastructure
+          - roberto-justin-lorena
+        default: software-infrastructure
+        required: true
+      enable_performance_tests:
+        type: boolean
+        description: Use perf-sized resources (lab only)
+        default: false
+  workflow_call:
+    inputs:
+      ring:
+        type: string
+        description: Ring
+        default: lab
+        required: false
+      region:
+        type: string
+        description: Region
+        default: eu_central
+        required: false
+      user_env_name:
+        type: string
+        description: Username/env name (lab only)
+        required: false
+      application_version_tag:
+        type: string
+        description: Artifactory tag (defaults to git tag)
+        required: false
+      team_name:
+        type: string
+        description: Team Name (lab only)
+        default: software-infrastructure
+        required: false
+      enable_datadog:
+        type: boolean
+        description: Enable DataDog (lab only)
+        default: false
+      enable_performance_tests:
+        type: boolean
+        description: Use perf-sized resources (dev only)
+        default: false
+      IS_WORKFLOW_CALL:
+        type: boolean
+        description: Used to tell GHA that this is a workflow call event. See docs as to why we do it like this.
+        default: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ring }}
+
+    steps:
+      - name: Trim inputs and setup environment
+        id: trim-export
+        shell: bash
+        run: |
+          account=${{ inputs.ring == 'lab' && 'lab' || 'prod' }}
+          region=${{ inputs.region }}
+          if [[ $account == 'prod' && "${{ inputs.user_env_name }}" ]]
+          then
+            echo "ERROR: You may not specify a user env name in prod. There are no user environments in prod. Did you mean to select the dev ring?" |& tee -a $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          userEnvName=$(echo '${{ inputs.ring == 'lab' && inputs.user_env_name || inputs.ring }}' | tr -d '[:space:]')
+          if [[ -z "$userEnvName" ]]
+          then
+            echo "ERROR: You must provide the user env name for dev deployments" |& tee -a $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          if [[ $account == 'prod' && "${{ inputs.application_version_tag }}" ]]
+          then
+            echo "ERROR: You may not override the version in ${{ inputs.ring }}. This is a safety measure. You probably meant to select \`${{ inputs.application_version_tag }}\` as the git tag instead of entering it in the Override Artifactory Tag field" |& tee -a $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          versionTagPattern='^v2[0-9]{3}-[01][0-9]-[0-3][0-9]-[0-9a-f]+$'
+          if [[ "${{ inputs.application_version_tag }}" ]]
+          then
+            applicationVersionTag="${{ inputs.application_version_tag }}"
+          elif [[ "${{ github.ref_type }}" == "tag" && "${{ github.ref_name }}" =~ $versionTagPattern ]]
+          then
+            echo "No override version given, defaulting to the tag (\`${{ github.ref_name }}\`)"
+            applicationVersionTag="${{ github.ref_name }}"
+          else
+            echo "ERROR: no override version given and the ${{ github.ref_type }} \`${{ github.ref_name }}\` either isn't a tag or isn't an artifact version" |& tee -a $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          applicationVersionTag=$(echo "$applicationVersionTag" | tr -d '[:space:]')
+          
+          if [[ $account == 'prod' ]]; then
+            inventoryDirName="${userEnvName}_${region}"
+          else
+            inventoryDirName="lab_${region}"          
+          fi
+
+          echo "user_env_name=${userEnvName}" >> $GITHUB_OUTPUT
+          echo "application_version_tag=${applicationVersionTag}" >> $GITHUB_OUTPUT
+          echo "inventory_path=inventories/${inventoryDirName}/inventory.yml" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v3
+
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        env:
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+
+      - name: Set up TemurinJDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: artifactory
+          server-username: ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME
+          server-password: ARTIFACTORY_ACCESS_READ_TOKEN
+          cache: 'maven'
+
+
+      - name: Outputs reader token token
+        shell: bash
+        run: |
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN_USERNAME=${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}" >> $GITHUB_ENV
+          echo "ARTIFACTORY_ACCESS_READ_TOKEN=${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}" >> $GITHUB_ENV
+
+
+      - name: Login to Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: http://deploydemo.jfrog.io/docker/deoloy-demo
+          username: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
+          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
+
+      - name: Checking if docker image exist
+        if: ${{ inputs.ring == 'lab' }}
+        run: |
+          if (( $(jf rt s "docker/argo/processor/${{ steps.trim-export.outputs.application_version_tag }}/*" --count) ==  0 )); then
+            echo "ERROR: Tag ${{ steps.trim-export.outputs.application_version_tag }} not found in JFrog"
+          exit 1
+          else
+            echo "Tag ${{ steps.trim-export.outputs.application_version_tag }} found in JFrog"
+          fi
+
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/setup-ansible
+        with:
+          vault-password: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+
+      - uses: ./.github/actions/aws-login
+        with:
+          ring: ${{ inputs.ring }}
+          region: ${{ inputs.region }}
+          okta-app-url: ${{ secrets.OKTA_AWS_APP_URL }}
+
+      - name: Running deploy-aws playbook
+        working-directory: ${{ env.ANSIBLE_DIRECTORY }}
+        run: |
+          ansible-playbook \
+            -i ${{ env.inventory_path }} \
+            -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
+            -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" \
+            -e git_src_ref="${{ github.ref_name }}" \
+            -e team_name="${{ inputs.team_name }}" \
+            -e user_datadog_setup="${{ inputs.ring != 'lab' && 'true' || inputs.enable_datadog }}" \
+            -e user_enable_performance_tests="${{ inputs.enable_performance_tests }}" \
+            deploy-aws.yml
