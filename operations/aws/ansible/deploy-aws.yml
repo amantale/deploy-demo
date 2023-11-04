@@ -1,0 +1,8 @@
+---
+- name: trigger argo code deploy pipeline
+  hosts: deploydemo
+  gather_facts: true
+  environment:
+    AWS_REGION: "{{ aws_region }}"
+  roles:
+    - role1
