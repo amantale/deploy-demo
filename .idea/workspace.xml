@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing PR summary">
-      <change afterPath="$PROJECT_DIR$/.github/actions/aws-login/action.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible-galaxy.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/ansible.cfg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/all.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/vault" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/lab_eu_central/all.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/lab_eu_central/vault" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/sadsadas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/dsadas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/vault" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/dasdsa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/inventory.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/dasda" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/role1/dsadsaa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/role1/tasks/main.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/other/random.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,27 +35,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/.github/actions",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/.github/actions&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;63733f7caad20ade35eecacd12d89759&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "Shell Script"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Shell Script&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.github/actions" />
@@ -155,20 +133,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00011" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698505675049</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1698505675049</updated>
-    </task>
-    <task id="LOCAL-00012" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698505738116</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1698505738116</updated>
     </task>
     <task id="LOCAL-00013" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
       <created>1698506005260</created>
@@ -499,7 +463,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699078883327</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="setting up ansible and deploy-aws.yml">
+      <created>1699082783230</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1699082783230</updated>
+    </task>
+    <task id="LOCAL-00061" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699082970633</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1699082970633</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +507,9 @@
     <MESSAGE value="starting to work on starting docker images locally" />
     <MESSAGE value="implemented script to run docker images locally" />
     <MESSAGE value="fixing PR summary" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing PR summary" />
+    <MESSAGE value="setting up ansible and deploy-aws.yml" />
+    <MESSAGE value="making sure ansible and deploy-aws.yml work properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="making sure ansible and deploy-aws.yml work properly" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
