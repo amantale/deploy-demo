@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,13 +133,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00016" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698506805805</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1698506805805</updated>
     </task>
     <task id="LOCAL-00017" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
       <created>1698506893710</created>
@@ -479,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699084532673</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699166809659</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1699166809660</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
