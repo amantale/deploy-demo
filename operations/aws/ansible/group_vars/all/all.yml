@@ -1,1 +1,1 @@
-variable_from_all_yml: "Hello from all.yml from all"
+variable_from_all_yml: "Hello from group vars all"
