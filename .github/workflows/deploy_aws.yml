@@ -202,7 +202,7 @@ jobs:
         run: |
           echo $ANSIBLE_DIRECTORY
           pwd
-          ansible-playbook \
+          ansible-playbook -vv \
             -i ${{ env.inventory_path }} \ 
             -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
             -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" \
