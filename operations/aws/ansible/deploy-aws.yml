@@ -1,5 +1,5 @@
 ---
-- name: trigger argo code deploy pipeline
+- name: trigger code deploy pipeline
   hosts: deploydemo
   gather_facts: true
   environment:

@@ -1,1 +1,2 @@
 variable_from_inventories: "Hello from inventories"
+aws_region: "eu-central"

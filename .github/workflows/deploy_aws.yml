@@ -201,7 +201,7 @@ jobs:
         working-directory: ${{ env.ANSIBLE_DIRECTORY }}
         run: |
           ansible-playbook \
-            -i ${{ env.inventory_path }} \
+            -i ${{ env.inventory_path }} \ 
             -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
             -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" \
             -e git_src_ref="${{ github.ref_name }}" \
