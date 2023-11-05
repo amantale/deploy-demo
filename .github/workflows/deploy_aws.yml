@@ -200,6 +200,7 @@ jobs:
       - name: Running deploy-aws playbook
         working-directory: ${{ env.ANSIBLE_DIRECTORY }}
         run: |
+          echo $ANSIBLE_DIRECTORY
           ansible-playbook \
             -i ${{ env.inventory_path }} \ 
             -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
