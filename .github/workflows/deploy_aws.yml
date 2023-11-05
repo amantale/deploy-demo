@@ -183,7 +183,7 @@ jobs:
 #          exit 1
 #          else
 #            echo "Tag ${{ steps.trim-export.outputs.application_version_tag }} found in JFrog"
-          fi
+#          fi
 
       - uses: actions/checkout@v3
 
