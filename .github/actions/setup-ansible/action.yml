@@ -19,6 +19,7 @@ runs:
 
         echo "ANSIBLE_DIRECTORY=${{ github.workspace }}/operations/aws/ansible" >> $GITHUB_ENV
         echo "ANSIBLE_VAULT_PASSWORD_FILE=$ANSIBLE_VAULT_PASSWORD_FILE" >> $GITHUB_ENV
+        echo "${{ github.workspace }}"
 
     - name: Python Setup
       uses: actions/setup-python@v4

@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/all.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/group_vars/lab_eu_central/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/lab_eu_central/all.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/inventory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/inventory.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/role1/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/role1/tasks/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,20 +136,6 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-    </task>
-    <task id="LOCAL-00024" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698562739959</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1698562739959</updated>
-    </task>
-    <task id="LOCAL-00025" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
-      <created>1698562969971</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1698562969971</updated>
     </task>
     <task id="LOCAL-00026" summary="fixing pipeline_workflow.yml by fixing publish_artifactory.yml">
       <created>1698563119415</created>
@@ -485,7 +466,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699168707153</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699202800158</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1699202800158</updated>
+    </task>
+    <task id="LOCAL-00074" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699203080726</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1699203080727</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
