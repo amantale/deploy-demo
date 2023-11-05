@@ -201,6 +201,7 @@ jobs:
         working-directory: ${{ env.ANSIBLE_DIRECTORY }}
         run: |
           echo $ANSIBLE_DIRECTORY
+          pwd
           ansible-playbook \
             -i ${{ env.inventory_path }} \ 
             -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
