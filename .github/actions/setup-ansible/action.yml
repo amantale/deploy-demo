@@ -1,0 +1,32 @@
+name: Setup Ansible
+description: Sets up Python and Ansible and sets the ANSIBLE_DIRECTORY and ANSIBLE_VAULT_PASSWORD_FILE environment variables
+
+inputs:
+  vault-password:
+    description: "The Ansible Vault password to use to decrypt the inventory files"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        [[ "${{ inputs.vault-password }}" ]] || (echo "::error::vault-password argument not given"; exit 1)
+
+        ANSIBLE_VAULT_PASSWORD_FILE=/tmp/vault_pass
+        
+        echo '${{ inputs.vault-password }}' > $ANSIBLE_VAULT_PASSWORD_FILE
+
+        echo "ANSIBLE_DIRECTORY=${{ github.workspace }}/operations/aws/ansible" >> $GITHUB_ENV
+        echo "ANSIBLE_VAULT_PASSWORD_FILE=$ANSIBLE_VAULT_PASSWORD_FILE" >> $GITHUB_ENV
+
+    - name: Python Setup
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+
+    - name: Install dependencies
+      working-directory: ${{ env.ANSIBLE_DIRECTORY }}
+      shell: bash
+      run: pip install -r requirements.txt

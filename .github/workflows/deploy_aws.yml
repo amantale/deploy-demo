@@ -191,11 +191,11 @@ jobs:
         with:
           vault-password: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
-      - uses: ./.github/actions/aws-login
-        with:
-          ring: ${{ inputs.ring }}
-          region: ${{ inputs.region }}
-          okta-app-url: ${{ secrets.OKTA_AWS_APP_URL }}
+#      - uses: ./.github/actions/aws-login
+#        with:
+#          ring: ${{ inputs.ring }}
+#          region: ${{ inputs.region }}
+#          okta-app-url: ${{ secrets.OKTA_AWS_APP_URL }}
 
       - name: Running deploy-aws playbook
         working-directory: ${{ env.ANSIBLE_DIRECTORY }}
