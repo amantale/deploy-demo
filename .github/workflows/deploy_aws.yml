@@ -98,14 +98,6 @@ jobs:
         run: |
           account=${{ inputs.ring == 'lab' && 'lab' || 'prod' }}
           region=${{ inputs.region }}
-          if [[ $region == 'eu_central' ]]
-          then
-            echo $region
-            region=eu-central-1
-            echo $region
-            exit 1
-          fi
-          
           if [[ $account == 'prod' && "${{ inputs.user_env_name }}" ]]
           then
             echo "ERROR: You may not specify a user env name in prod. There are no user environments in prod. Did you mean to select the dev ring?" |& tee -a $GITHUB_STEP_SUMMARY
@@ -144,6 +136,12 @@ jobs:
             inventoryDirName="${userEnvName}_${region}"
           else
             inventoryDirName="lab_${region}"          
+          fi
+          
+          if [[ $region == 'eu_central' ]]
+          then
+            region=eu-central-1
+            exit 1
           fi
 
           echo "user_env_name=${userEnvName}" >> $GITHUB_OUTPUT
