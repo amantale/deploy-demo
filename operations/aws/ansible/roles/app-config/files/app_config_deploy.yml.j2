@@ -1,0 +1,37 @@
+---
+Description: An AppConfig application for dynamic configuration
+Parameters:
+  Application:
+    Description: 'Application name to add to tags'
+    Type: String
+  Environment:
+    Description: 'The name of the Stack / Environment'
+    Type: String
+  AppConfigApplicationId:
+    Description: 'The id of AppConfig Application'
+    Type: String
+  AppConfigProcessorProfileId:
+    Description: 'Processor configuration profile id'
+    Type: String
+  InstantDeploymentStrategy:
+    Description: 'Id of instant deployment strategy'
+    Type: String
+  EnvironmentId:
+    Description: 'Id of environment to be deployed to'
+    Type: String
+Resources:
+  AppConfigProcessorDefaultConfiguration:
+    Type: 'AWS::AppConfig::HostedConfigurationVersion'
+    Properties:
+      ApplicationId: !Ref AppConfigApplicationId
+      ConfigurationProfileId: !Ref AppConfigProcessorProfileId
+      Content: '{{ processor_default_configuration | tojson }}'
+      ContentType: 'application/json'
+  AppConfigDefaultDeployment:
+    Type: 'AWS::AppConfig::Deployment'
+    Properties:
+      ApplicationId: !Ref AppConfigApplicationId
+      ConfigurationProfileId: !Ref AppConfigProcessorProfileId
+      DeploymentStrategyId: !Ref InstantDeploymentStrategy
+      EnvironmentId: !Ref EnvironmentId
+      ConfigurationVersion: !Ref AppConfigProcessorDefaultConfiguration
