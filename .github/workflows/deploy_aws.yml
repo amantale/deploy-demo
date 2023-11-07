@@ -141,7 +141,6 @@ jobs:
           if [[ $region == 'eu_central' ]]
           then
             region=eu-central-1
-            exit 1
           fi
 
           echo "user_env_name=${userEnvName}" >> $GITHUB_OUTPUT

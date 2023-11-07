@@ -135,13 +135,6 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
     </task>
-    <task id="LOCAL-00041" summary="trying to fix publishing to artifactory">
-      <created>1698958067304</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1698958067304</updated>
-    </task>
     <task id="LOCAL-00042" summary="trying to fix publishing to artifactory">
       <created>1698958183105</created>
       <option name="number" value="00042" />
@@ -478,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699367637633</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="making the connection to aws from github actions">
+      <created>1699368157602</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1699368157603</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
