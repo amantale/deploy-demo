@@ -98,6 +98,12 @@ jobs:
         run: |
           account=${{ inputs.ring == 'lab' && 'lab' || 'prod' }}
           region=${{ inputs.region }}
+          if [[ $region == 'eu_central' ]]
+          then
+            region = eu-central-1
+            exit 1
+          fi
+          
           if [[ $account == 'prod' && "${{ inputs.user_env_name }}" ]]
           then
             echo "ERROR: You may not specify a user env name in prod. There are no user environments in prod. Did you mean to select the dev ring?" |& tee -a $GITHUB_STEP_SUMMARY
@@ -140,6 +146,7 @@ jobs:
 
           echo "user_env_name=${userEnvName}" >> $GITHUB_OUTPUT
           echo "application_version_tag=${applicationVersionTag}" >> $GITHUB_OUTPUT
+          echo "region=${region}" >> $GITHUB_OUTPUT
           echo "inventory_path=inventories/${inventoryDirName}/inventory.yml" >> $GITHUB_ENV
 
       - uses: actions/checkout@v3
@@ -196,14 +203,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.region }}
+          aws-region: ${{ steps.trim-export.outputs.region }}
           role-to-assume: gha-deploy-role
           role-duration-seconds: 1200
           role-session-name: MySessionName
 
       - name: Verify AWS login
         run: |
-          aws ec2 describe-instances --region ${{ inputs.region }}
+          aws ec2 describe-instances --region ${{ steps.trim-export.outputs.region}}
       - name: Running deploy-aws playbook
         working-directory: ./operations/aws/ansible
         run: |

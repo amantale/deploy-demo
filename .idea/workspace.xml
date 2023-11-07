@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/files/app_config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/tasks/main.yml" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making the connection to aws from github actions">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,13 +136,6 @@
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
-    </task>
-    <task id="LOCAL-00038" summary="trying to fix publishing to artifactory">
-      <created>1698957596085</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1698957596085</updated>
     </task>
     <task id="LOCAL-00039" summary="trying to fix publishing to artifactory">
       <created>1698957897149</created>
@@ -483,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699363378510</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="making the connection to aws from github actions">
+      <created>1699366336336</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1699366336336</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +513,8 @@
     <MESSAGE value="setting up ansible and deploy-aws.yml" />
     <MESSAGE value="making sure ansible and deploy-aws.yml work properly" />
     <MESSAGE value="cleanup + made the workflow run properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup + made the workflow run properly" />
+    <MESSAGE value="making the connection to aws from github actions" />
+    <option name="LAST_COMMIT_MESSAGE" value="making the connection to aws from github actions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
