@@ -7,3 +7,4 @@
     AWS_REGION: "{{ aws_region }}"
   roles:
     - role1
+    - app-config
