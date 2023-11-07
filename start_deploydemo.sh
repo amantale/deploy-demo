@@ -11,7 +11,7 @@ function usage() {
   echo "  -a, --action-name    action    The action you want to perform. Can be start, stop or reset (start+stop)"
   echo "  -t, --tag-version    version   Tag version of the docker images of the microservices you want to run locally"
   echo ""
-  echo "Example: $0 -a reset -t v2023-11-3-aaaa"
+  echo "Example: $0 -a reset -t v2023-11-03-aaaa"
   exit 1
 }
 

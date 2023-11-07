@@ -148,12 +148,12 @@ jobs:
         run: |
           mvn clean verify 
 
-#  package-artifactory:
-#    name: Build and Publish
-#    needs: [ setup-job ]
-#    uses: ./.github/workflows/publish_artifactory.yml
-#    secrets: inherit
-#
+  package-artifactory:
+    name: Build and Publish
+    needs: [ setup-job ]
+    uses: ./.github/workflows/publish_artifactory.yml
+    secrets: inherit
+
 #  final-summary:
 #    name: Final Summary
 #    needs: [ setup-job, package-artifactory ]

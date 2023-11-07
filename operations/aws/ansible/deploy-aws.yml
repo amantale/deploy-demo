@@ -1,7 +1,8 @@
 ---
-- name: trigger argo code deploy pipeline
+- name: trigger code deploy pipeline
   hosts: deploydemo
   gather_facts: true
+  connection: local
   environment:
     AWS_REGION: "{{ aws_region }}"
   roles:

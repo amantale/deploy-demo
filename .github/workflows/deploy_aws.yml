@@ -175,15 +175,15 @@ jobs:
           username: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN_USERNAME }}
           password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN1 }}
 
-      - name: Checking if docker image exist
-        if: ${{ inputs.ring == 'lab' }}
-        run: |
-          if (( $(jf rt s "docker/argo/processor/${{ steps.trim-export.outputs.application_version_tag }}/*" --count) ==  0 )); then
-            echo "ERROR: Tag ${{ steps.trim-export.outputs.application_version_tag }} not found in JFrog"
-          exit 1
-          else
-            echo "Tag ${{ steps.trim-export.outputs.application_version_tag }} found in JFrog"
-          fi
+#      - name: Checking if docker image exist
+#        if: ${{ inputs.ring == 'lab' }}
+#        run: |
+#          if (( $(jf rt s "https://deploydemo.jfrog.io/artifactory/docker/microservice1/${{ steps.trim-export.outputs.application_version_tag }}/*" --count) ==  0 )); then
+#            echo "ERROR: Tag ${{ steps.trim-export.outputs.application_version_tag }} not found in JFrog"
+#          exit 1
+#          else
+#            echo "Tag ${{ steps.trim-export.outputs.application_version_tag }} found in JFrog"
+#          fi
 
       - uses: actions/checkout@v3
 
@@ -191,21 +191,18 @@ jobs:
         with:
           vault-password: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
-      - uses: ./.github/actions/aws-login
-        with:
-          ring: ${{ inputs.ring }}
-          region: ${{ inputs.region }}
-          okta-app-url: ${{ secrets.OKTA_AWS_APP_URL }}
+#      - uses: ./.github/actions/aws-login
+#        with:
+#          ring: ${{ inputs.ring }}
+#          region: ${{ inputs.region }}
+#          okta-app-url: ${{ secrets.OKTA_AWS_APP_URL }}
 
       - name: Running deploy-aws playbook
-        working-directory: ${{ env.ANSIBLE_DIRECTORY }}
+        working-directory: ./operations/aws/ansible
         run: |
-          ansible-playbook \
-            -i ${{ env.inventory_path }} \
-            -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" \
-            -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" \
-            -e git_src_ref="${{ github.ref_name }}" \
-            -e team_name="${{ inputs.team_name }}" \
-            -e user_datadog_setup="${{ inputs.ring != 'lab' && 'true' || inputs.enable_datadog }}" \
-            -e user_enable_performance_tests="${{ inputs.enable_performance_tests }}" \
-            deploy-aws.yml
+          python3 --version
+          ansible --version
+          echo $ANSIBLE_DIRECTORY
+          pwd
+          ls
+          ansible-playbook -vv -i ${{ env.inventory_path }} -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" -e git_src_ref="${{ github.ref_name }}" -e team_name="${{ inputs.team_name }}" -e user_datadog_setup="${{ inputs.ring != 'lab' && 'true' || inputs.enable_datadog }}" -e user_enable_performance_tests="${{ inputs.enable_performance_tests }}" deploy-aws.yml

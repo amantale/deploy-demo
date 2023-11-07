@@ -1,12 +1,12 @@
 ---
 - name: Display variable from all yml
   debug:
-    var: "{{ variable_from_all_yml }}"
+    var: variable_from_all_yml
 
 - name: Display variable from lab eu central yml
   debug:
-    var: "{{ variable_from_lab_eu_central_yml }}"
+    msg: "{{ variable_lab_eu_central_yml }}"
 
 - name: Display variable from inventories
   debug:
-    var: "{{ variable_from_inventories }}"
+    var: variable_from_inventories
