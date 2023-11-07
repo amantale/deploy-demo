@@ -136,21 +136,7 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-      <workItem from="1699357896225" duration="734000" />
-    </task>
-    <task id="LOCAL-00034" summary="trying to fix publishing to artifactory">
-      <created>1698773482720</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1698773482721</updated>
-    </task>
-    <task id="LOCAL-00035" summary="trying to fix publishing to artifactory">
-      <created>1698869615813</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1698869615813</updated>
+      <workItem from="1699357896225" duration="1892000" />
     </task>
     <task id="LOCAL-00036" summary="trying to fix publishing to artifactory">
       <created>1698954401639</created>
@@ -481,7 +467,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699358628937</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699358823706</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1699358823707</updated>
+    </task>
+    <task id="LOCAL-00084" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699359416978</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1699359416979</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
