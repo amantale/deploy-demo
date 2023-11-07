@@ -205,6 +205,4 @@ jobs:
           echo $ANSIBLE_DIRECTORY
           pwd
           ls
-          ansible-playbook -vv \
-            -i ${{ env.inventory_path }} \ 
-            deploy-aws.yml
+          ansible-playbook -vv -i ${{ env.inventory_path }} deploy-aws.yml
