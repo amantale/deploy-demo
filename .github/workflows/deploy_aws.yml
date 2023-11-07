@@ -100,7 +100,9 @@ jobs:
           region=${{ inputs.region }}
           if [[ $region == 'eu_central' ]]
           then
-            region = eu-central-1
+            echo $region
+            region=eu-central-1
+            echo $region
             exit 1
           fi
           
