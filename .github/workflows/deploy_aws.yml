@@ -200,6 +200,7 @@ jobs:
       - name: Running deploy-aws playbook
         working-directory: ./operations/aws/ansible
         run: |
+          ansible --version
           echo $ANSIBLE_DIRECTORY
           pwd
           ls
