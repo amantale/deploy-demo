@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy_aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,14 +136,7 @@
       <workItem from="1698869187034" duration="1829000" />
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
-      <workItem from="1699357896225" duration="387000" />
-    </task>
-    <task id="LOCAL-00033" summary="trying to fix publishing to artifactory">
-      <created>1698642292841</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1698642292841</updated>
+      <workItem from="1699357896225" duration="734000" />
     </task>
     <task id="LOCAL-00034" summary="trying to fix publishing to artifactory">
       <created>1698773482720</created>
@@ -478,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699358177170</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="making sure ansible and deploy-aws.yml work properly">
+      <created>1699358628933</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1699358628937</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
