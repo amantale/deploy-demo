@@ -207,9 +207,6 @@ jobs:
           role-duration-seconds: 1200
           role-session-name: MySessionName
 
-      - name: Verify AWS login
-        run: |
-          aws ec2 describe-instances --region ${{ steps.trim-export.outputs.region}}
       - name: Running deploy-aws playbook
         working-directory: ./operations/aws/ansible
         run: |
