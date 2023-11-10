@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making the connection to aws from github actions">
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config">
+      <change beforePath="$PROJECT_DIR$/.github/actions/setup-ansible/action.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/actions/setup-ansible/action.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/tasks/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/group_vars/aws_lab_eu_central/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/aws_lab_eu_central/all.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +49,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/.github/actions&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/roles/app-config/files&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;63733f7caad20ade35eecacd12d89759&quot;
@@ -61,6 +62,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/files" />
       <recent name="$PROJECT_DIR$/.github/actions" />
       <recent name="$PROJECT_DIR$/.github/workflows" />
       <recent name="$PROJECT_DIR$/operations/aws" />
@@ -137,28 +139,8 @@
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
-      <workItem from="1699384269755" duration="441000" />
-    </task>
-    <task id="LOCAL-00043" summary="trying to fix publishing to artifactory">
-      <created>1698958338724</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1698958338725</updated>
-    </task>
-    <task id="LOCAL-00044" summary="trying to fix publishing to artifactory">
-      <created>1698959397769</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959397770</updated>
-    </task>
-    <task id="LOCAL-00045" summary="trying to fix publishing to artifactory">
-      <created>1698959591531</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959591531</updated>
+      <workItem from="1699384269755" duration="2306000" />
+      <workItem from="1699600081773" duration="1750000" />
     </task>
     <task id="LOCAL-00046" summary="trying to fix publishing to artifactory">
       <created>1698959820930</created>
@@ -482,7 +464,28 @@
       <option name="project" value="LOCAL" />
       <updated>1699368298442</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="implementing app config">
+      <created>1699384859571</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1699384859571</updated>
+    </task>
+    <task id="LOCAL-00093" summary="implementing app config">
+      <created>1699385103551</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1699385103551</updated>
+    </task>
+    <task id="LOCAL-00094" summary="implementing app config">
+      <created>1699385213128</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1699385213128</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +519,8 @@
     <MESSAGE value="making sure ansible and deploy-aws.yml work properly" />
     <MESSAGE value="cleanup + made the workflow run properly" />
     <MESSAGE value="making the connection to aws from github actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="making the connection to aws from github actions" />
+    <MESSAGE value="implementing app config" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementing app config" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

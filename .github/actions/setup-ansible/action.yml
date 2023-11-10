@@ -30,4 +30,11 @@ runs:
     - name: Install dependencies
       working-directory: ${{ env.ANSIBLE_DIRECTORY }}
       shell: bash
-      run: pip install -r requirements.txt
+      run: |
+        pip install -r requirements.txt
+        pip install boto3
+
+    - name: Setup venv
+      shell: bash
+      run: |
+        python3 -m pip install virtualenv
