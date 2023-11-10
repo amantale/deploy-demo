@@ -211,9 +211,4 @@ jobs:
         working-directory: ./operations/aws/ansible
         run: |
           pip3.9 install -r requirements.txt
-          pip3.9 list | grep boto
-          pip3.9 uninstall boto3
-          ls /usr/bin/python3
-          /usr/bin/python3/pip3.9 install boto3
-          ls /usr/bin/python3
           ansible-playbook -vv -i ${{ env.inventory_path }} -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" -e git_src_ref="${{ github.ref_name }}" -e team_name="${{ inputs.team_name }}" -e user_datadog_setup="${{ inputs.ring != 'lab' && 'true' || inputs.enable_datadog }}" -e user_enable_performance_tests="${{ inputs.enable_performance_tests }}" deploy-aws.yml
