@@ -1,16 +1,16 @@
 ---
-#- name: Lookup AppConfig Application id
-#  cloudformation_info:
-#    stack_name: "deploydemo-{{ account_name }}-app-config-application"
-#    stack_resources: true
-#  register: output
-#- set_fact:
-#    stack_name: "deploydemo-{{ account_name }}-app-config-application"
-#- set_fact:
-#    app_config_application_id: "{{ output['cloudformation'][stack_name]['stack_resources']['AppConfigApplication'] }}"
-#    processor_profile_id: "{{ output['cloudformation'][stack_name]['stack_resources']['ProcessorAppConfigConfigurationProfile'] }}"
-#    instant_deployment_strategy: "{{ output['cloudformation'][stack_name]['stack_resources']['AllAtOnceDeployment'] }}"
-#    processor_default_configuration: "{{ lookup('file', 'processor.default.json') }}"
+- name: Lookup AppConfig Application id
+  cloudformation_info:
+    stack_name: "deploydemo-{{ account_name }}-app-config-application"
+    stack_resources: true
+  register: output
+- set_fact:
+    stack_name: "deploydemo-{{ account_name }}-app-config-application"
+- set_fact:
+    app_config_application_id: "{{ output['cloudformation'][stack_name]['stack_resources']['AppConfigApplication'] }}"
+    processor_profile_id: "{{ output['cloudformation'][stack_name]['stack_resources']['ProcessorAppConfigConfigurationProfile'] }}"
+    instant_deployment_strategy: "{{ output['cloudformation'][stack_name]['stack_resources']['AllAtOnceDeployment'] }}"
+    processor_default_configuration: "{{ lookup('file', 'processor.default.json') }}"
     
 - name: Fill in processor default configuration
   template:
