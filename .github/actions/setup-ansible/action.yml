@@ -27,8 +27,8 @@ runs:
         python-version: '3.9'
         cache: 'pip'
 
-#    - name: Install dependencies
-#      working-directory: ${{ env.ANSIBLE_DIRECTORY }}
-#      shell: bash
-#      run: |
-#        pip3.9 install -r requirements.txt
+    - name: Install dependencies
+      working-directory: ${{ env.ANSIBLE_DIRECTORY }}
+      shell: bash
+      run: |
+        pip3.9 install -r requirements.txt

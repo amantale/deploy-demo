@@ -2,4 +2,4 @@ all:
   children:
     aws_lab_eu_central:
       hosts:
-        deploydemo: {}
+        hostname: {}
