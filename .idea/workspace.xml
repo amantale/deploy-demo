@@ -136,14 +136,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="3719000" />
-    </task>
-    <task id="LOCAL-00049" summary="trying to fix publishing to artifactory">
-      <created>1699025127930</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1699025127930</updated>
+      <workItem from="1699600081773" duration="4069000" />
     </task>
     <task id="LOCAL-00050" summary="trying to fix publishing to artifactory">
       <created>1699025156343</created>
@@ -481,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699603711849</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="implementing app config">
+      <created>1699603937817</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1699603937818</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
