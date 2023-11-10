@@ -218,4 +218,7 @@ jobs:
           echo $ANSIBLE_DIRECTORY
           pwd
           ls
+          pip show boto3
+          /usr/bin/python3/bin/pip3 install botocore boto3
+          pip show boto3
           ansible-playbook -vv -i ${{ env.inventory_path }} -e application_version="${{ steps.trim-export.outputs.application_version_tag }}" -e user_env_name="${{ steps.trim-export.outputs.user_env_name }}" -e git_src_ref="${{ github.ref_name }}" -e team_name="${{ inputs.team_name }}" -e user_datadog_setup="${{ inputs.ring != 'lab' && 'true' || inputs.enable_datadog }}" -e user_enable_performance_tests="${{ inputs.enable_performance_tests }}" deploy-aws.yml
