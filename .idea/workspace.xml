@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,21 +138,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="6533000" />
-    </task>
-    <task id="LOCAL-00059" summary="fixing PR summary">
-      <created>1699078883326</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1699078883327</updated>
-    </task>
-    <task id="LOCAL-00060" summary="setting up ansible and deploy-aws.yml">
-      <created>1699082783230</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1699082783230</updated>
+      <workItem from="1699600081773" duration="7370000" />
     </task>
     <task id="LOCAL-00061" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699082970633</created>
@@ -481,7 +469,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699606445473</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="implementing app config">
+      <created>1699606799528</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1699606799532</updated>
+    </task>
+    <task id="LOCAL-00109" summary="implementing app config">
+      <created>1699607024502</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1699607024503</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
