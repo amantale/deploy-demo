@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config">
-      <change beforePath="$PROJECT_DIR$/.github/actions/setup-ansible/action.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/actions/setup-ansible/action.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/group_vars/aws_lab_eu_central/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/aws_lab_eu_central/all.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,14 +138,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="1750000" />
-    </task>
-    <task id="LOCAL-00046" summary="trying to fix publishing to artifactory">
-      <created>1698959820930</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959820931</updated>
+      <workItem from="1699600081773" duration="3321000" />
     </task>
     <task id="LOCAL-00047" summary="trying to fix publishing to artifactory">
       <created>1698959876369</created>
@@ -485,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699385213128</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="implementing app config">
+      <created>1699601917062</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1699601917063</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

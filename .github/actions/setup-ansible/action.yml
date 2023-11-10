@@ -32,7 +32,7 @@ runs:
       shell: bash
       run: |
         pip install -r requirements.txt
-        pip install boto3
+        /usr/bin/python3/bin/pip3 install botocore boto3
 
     - name: Setup venv
       shell: bash
