@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/ansible.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/ansible.cfg" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,21 +139,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="4757000" />
-    </task>
-    <task id="LOCAL-00053" summary="fixing PR summary">
-      <created>1699040472842</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040472843</updated>
-    </task>
-    <task id="LOCAL-00054" summary="fixing PR summary">
-      <created>1699040775701</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040775702</updated>
+      <workItem from="1699600081773" duration="5517000" />
     </task>
     <task id="LOCAL-00055" summary="fixing PR summary">
       <created>1699040835269</created>
@@ -481,7 +470,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699604866640</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="implementing app config">
+      <created>1699604989272</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1699604989272</updated>
+    </task>
+    <task id="LOCAL-00103" summary="implementing app config">
+      <created>1699605234861</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1699605234862</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
