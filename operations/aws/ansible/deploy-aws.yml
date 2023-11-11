@@ -1,9 +1,8 @@
 ---
 - name: trigger code deploy pipeline
   hosts: hostname
-  gather_facts: true
-  ignore_unreachable: true
+  connection: local
   environment:
     AWS_REGION: "{{ aws_region }}"
   roles:
-    - app-config
+    - ecs

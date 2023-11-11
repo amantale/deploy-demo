@@ -1,2 +1,10 @@
 variable_from_inventories: "Hello from inventories"
 aws_region: "eu-central"
+
+
+#vars
+cfn_stack_name: "deploydemo-stack"
+region: "eu-central-1"
+account: "lab-eu"
+instance_type: "t2.micro"
+image_id: "ami-0a485299eeb98b979"
