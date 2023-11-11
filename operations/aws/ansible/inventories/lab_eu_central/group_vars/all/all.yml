@@ -5,9 +5,21 @@ aws_region: "eu-central"
 #vars
 cfn_stack_name: "deploydemo-stack"
 region: "eu-central-1"
-account: "lab-eu"
+account: "lab-eu-central"
 instance_type: "t2.micro"
 image_id: "ami-0a485299eeb98b979"
 application: "deploy-demo"
-full_stack: "yes"
+full_stack: "Yes"
 artifactory_host: "deploydemo.jfrog.io"
+ecs_tasks_count: 1
+
+ecs_artifactory_credentials: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deploydemo-Artifactory-Credential-G51ARr"
+ecs_subnets: "subnet-07ce1bae678b5a9cb,subnet-02345fc06e28d3f2d,subnet-0c771ead1d7ecaff3"
+ecs_security_group: "Value is created and taken from CFN - medusaEcsSecurityGroup"
+ecs_execution_role: "Value is created and taken from CFN - medusaEcsRole"
+alb_subnets: "subnet-07ce1bae678b5a9cb,subnet-0c771ead1d7ecaff3"
+alb_security_group: "Value is created and taken from CFN - medusaAlbSg"
+alb_listener_certificate: "arn:aws:acm:eu-central-1:544176100230:certificate/f13c260f-47c4-4269-ad78-206a77bbe486"
+vpc_id: "vpc-026bc198ec4d1e1cb"
+
+kms_secret_holder_arn: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deploydemo/lab/kms-key-arn-yLlLyH"

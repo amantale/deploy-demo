@@ -60,7 +60,7 @@ if ! [[ "$ACCOUNT_NAME" =~ ^(lab|lab_west|lab_eu_central|prod|prod_west|prod_eu_
   exit 1
 fi
 
-env no_proxy='*' ansible-playbook -vv \
+env no_proxy='*' ansible-playbook -vvv \
   --vault-password-file="$KEY_FILE" \
   -i ansible/inventories/"$ACCOUNT_NAME" \
   -e version_tag="$VERSION" \

@@ -1,25 +1,5 @@
 {
   "server": {
     "port": "80"
-  },
-  "kafka": {
-    "bootstrap-servers": "b-1.argolabeumessageclu.3zd1kp.c8.kafka.eu-central-1.amazonaws.com:9092,b-2.argolabeumessageclu.3zd1kp.c8.kafka.eu-central-1.amazonaws.com:9092,b-3.argolabeumessageclu.3zd1kp.c8.kafka.eu-central-1.amazonaws.com:9092"
-  },
-  "message": {
-    "consumer": {
-      "topic": "messaging_aws-nera-eu-one-processor-ingress-objects,messaging_aws-nera-eu-two-processor-ingress-objects,messaging_aws-nera-eu-three-processor-ingress-objects,messaging_aws-phoenix-eu-one-processor-ingress-objects,messaging_aws-phoenix-eu-two-processor-ingress-objects"
-    }
-  },
-  "encryption": {
-    "enabled": true,
-    "aws": {
-      "master-key-list": "CROSS_REGION_KEY_ARN_PLACEHOLDER"
-    }
-  },
-  "dynamo": {
-    "table": {
-      "name": "medusa-lab-eu-central-table",
-      "region": "eu-central-1"
-    }
   }
 }

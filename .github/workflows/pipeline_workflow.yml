@@ -154,18 +154,18 @@ jobs:
     uses: ./.github/workflows/publish_artifactory.yml
     secrets: inherit
 
-#  final-summary:
-#    name: Final Summary
-#    needs: [ setup-job, package-artifactory ]
-#    runs-on: ubuntu-latest
-#    env:
-#      GH_TOKEN: ${{ github.token }}
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Create workflow summary
-#        shell: bash
-#        run: |
-#          echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
-#          echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
-#          echo "| Artifactory Image Tag | ${{ needs.package-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY
+  final-summary:
+    name: Final Summary
+    needs: [ setup-job, package-artifactory ]
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create workflow summary
+        shell: bash
+        run: |
+          echo "| Name | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ---- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Artifactory Image Tag | ${{ needs.package-artifactory.outputs.artifactory-version-tag }} |" >> $GITHUB_STEP_SUMMARY

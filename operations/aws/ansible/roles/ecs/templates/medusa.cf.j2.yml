@@ -27,15 +27,6 @@ Parameters:
   ArtifactoryHost:
     Type: String
     Description: "Used in combination with VersionTag to create the completed Artifactory URL"
-  AlbUserPoolArn:
-    Type: String
-    Description: "CognitoUserPoolArn value"
-  AlbUserPoolClientId:
-    Type: String
-    Description: "CognitoUserPoolClientId value"
-  AlbUserPoolDomain:
-    Type: String
-    Description: "CognitoUserPoolDomain value"
   EcsServiceDesiredTaskCount:
     Type: Number
     Description: "Count of ECS tasks running the Medusa application"
@@ -68,62 +59,59 @@ Parameters:
     Description: "The VPC Id of the account"
 
 Resources:
-  Resources:
-    medusaEcsCluster:
-      Type: AWS::ECS::Cluster
-      Properties:
-        ClusterName: !Sub "medusa-${Account}-cluster"
-        ClusterSettings:
-          - Name: "containerInsights"
-            Value: "enabled"
-        Tags:
-          - Key: "Application"
-            Value: "argo"
+  medusaEcsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub "medusa-${Account}-cluster"
+      ClusterSettings:
+        - Name: "containerInsights"
+          Value: "enabled"
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
 
-    medusaEcsService:
-      Type: AWS::ECS::Service
-  { % if ('us' in region or 'eu' in region) and 'Yes' in full_stack% }
-  DependsOn:
-    - medusa80ELBListener
-    - medusa443ElbListener
-  { % endif % }
-  Properties:
-    Cluster: !Ref medusaEcsCluster
-    DeploymentConfiguration:
-      MaximumPercent: 200
-      MinimumHealthyPercent: 100
-    DesiredCount: !Ref EcsServiceDesiredTaskCount
-    EnableECSManagedTags: true
-  { % if 'Yes' in full_stack % }
-  HealthCheckGracePeriodSeconds: 30
-  { % endif % }
-  LaunchType: "FARGATE"
-  { % if 'Yes' in full_stack % }
-  LoadBalancers:
-    - ContainerName: !Sub "medusa-${Account}"
-      ContainerPort: 80
-      TargetGroupArn: !Ref medusaTargetGroup
-  { % endif % }
-  NetworkConfiguration:
-    AwsvpcConfiguration:
-      AssignPublicIp: "ENABLED"
-      SecurityGroups:
-  { % if 'us' not in region % }
-  - !GetAtt medusaEcsSecurityGroup.GroupId
-  { % else % }
-  - !Ref EcsSecurityGroup
-  { % endif % }
-  Subnets: !Split
-    - ","
-    - !Ref EcsSubnets
-  SchedulingStrategy: "REPLICA"
-  ServiceName: !Sub "medusa-${Account}-service"
-  Tags:
-    - Key: "Application"
-      Value: "argo"
-    - Key: "c7n_offhours"
-      Value: "on"
-  TaskDefinition: !Ref medusaEcsTaskDefinition
+  medusaEcsService:
+    Type: AWS::ECS::Service
+{% if ('us' in region or 'eu' in region) and 'Yes' in full_stack%}
+    DependsOn:
+      - medusa80ELBListener
+      - medusa443ElbListener
+{% endif %}
+    Properties:
+      Cluster: !Ref medusaEcsCluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DesiredCount: !Ref EcsServiceDesiredTaskCount
+      EnableECSManagedTags: true
+{% if 'Yes' in full_stack %}
+      HealthCheckGracePeriodSeconds: 30
+{% endif %}
+      LaunchType: "FARGATE"
+{% if 'Yes' in full_stack %}
+      LoadBalancers:
+        - ContainerName: !Sub "medusa-${Account}"
+          ContainerPort: 80
+          TargetGroupArn: !Ref medusaTargetGroup
+{% endif %}
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: "ENABLED"
+          SecurityGroups:
+{% if 'us' not in region %}
+            - !GetAtt medusaEcsSecurityGroup.GroupId
+{% else %}
+            - !Ref EcsSecurityGroup
+{% endif %}
+          Subnets: !Split
+            - ","
+            - !Ref EcsSubnets
+      SchedulingStrategy: "REPLICA"
+      ServiceName: !Sub "medusa-${Account}-service"
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
+      TaskDefinition: !Ref medusaEcsTaskDefinition
 
   medusaEcsTaskDefinition:
     DependsOn: medusaEcsRole
@@ -131,7 +119,7 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Name: !Sub "medusa-${Account}"
-          Image: !Sub "${ArtifactoryHost}/medusa/medusa:${VersionTag}"
+          Image: !Sub "${ArtifactoryHost}/docker/microservice1:${VersionTag}"
           RepositoryCredentials:
             CredentialsParameter: !Ref EcsArtifactoryCredentials
           PortMappings:
@@ -142,60 +130,42 @@ Resources:
           Environment:
             - Name: SPRING_APPLICATION_JSON
               Value: !Ref EcsEnvVars
-          Secrets:
-            - Name: SNOW_PASSWORD
-              ValueFrom: "/medusa/snow/password"
-        - Name: !Sub "medusa-${Account}-sumolog-router"
-          Image: "amazon/aws-for-fluent-bit:latest"
-          Essential: true
-          FirelensConfiguration:
-            Type: "fluentbit"
-            Options:
-              enable-ecs-log-metadata: "true"
           LogConfiguration:
-            LogDriver: "awslogs"
+            LogDriver: awslogs
             Options:
-              awslogs-create-group: "true"
-              awslogs-group: "messaging-medusa"
+              awslogs-group: !Sub "medusa-${Account}-logs"
               awslogs-region: !Ref "AWS::Region"
-              awslogs-stream-prefix: !Sub "medusa-${Account}-fluentbit"
+              awslogs-stream-prefix: medusa
       Cpu: "1024"
       ExecutionRoleArn:
-  { % if 'us' not in region % }
-  !Ref medusaEcsRole
-  {% else %}
-  !Ref EcsExecutionRole
-  {% endif %}
-  Family: !Sub "medusa-${Account}"
-  Memory: "4096"
-  NetworkMode: "awsvpc"
-  RequiresCompatibilities:
-    - "FARGATE"
-  Tags:
-    - Key: "Application"
-      Value: "argo"
-  TaskRoleArn:
-    !Ref medusaEcsRole
+{% if 'us' not in region %}
+        !Ref medusaEcsRole
+{% else %}
+        !Ref EcsExecutionRole
+{% endif %}
+      Family: !Sub "medusa-${Account}"
+      Memory: "4096"
+      NetworkMode: "awsvpc"
+      RequiresCompatibilities:
+        - "FARGATE"
+      RuntimePlatform:
+        CpuArchitecture: ARM64
+        OperatingSystemFamily: LINUX
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
+      TaskRoleArn:
+        !Ref medusaEcsRole
 
-  { % if 'Yes' in full_stack % }
+{% if 'Yes' in full_stack %}
   medusa443ElbListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       Certificates:
         - CertificateArn: !Ref AlbListenerCertificate
       DefaultActions:
-        - Type: authenticate-cognito
-          Order: 1
-          AuthenticateCognitoConfig:
-            OnUnauthenticatedRequest: "authenticate"
-            Scope: "openid profile"
-            SessionCookieName: "AWSELBAuthSessionCookie"
-            SessionTimeout: "604800"
-            UserPoolArn: !Ref AlbUserPoolArn
-            UserPoolClientId: !Ref AlbUserPoolClientId
-            UserPoolDomain: !Ref AlbUserPoolDomain
         - Type: forward
-          Order: 2
+          Order: 1
           ForwardConfig:
             TargetGroups:
               - TargetGroupArn: !Ref medusaTargetGroup
@@ -206,9 +176,9 @@ Resources:
       Port: 443
       Protocol: "HTTPS"
       SslPolicy: "ELBSecurityPolicy-2016-08"
-  { % endif % }
+{% endif %}
 
-  { % if 'Yes' in full_stack % }
+{% if 'Yes' in full_stack %}
   medusaTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -236,9 +206,9 @@ Resources:
       TargetType: "ip"
       UnhealthyThresholdCount: 2
       VpcId: !Ref VpcId
-  { % endif % }
+  {% endif %}
 
-  { % if 'Yes' in full_stack % }
+{% if 'Yes' in full_stack %}
   medusa443ElbListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
@@ -256,9 +226,9 @@ Resources:
             - "/actuator*"
       ListenerArn: !Ref medusa443ElbListener
       Priority: 1
-  { % endif % }
+{% endif %}
 
-  { % if 'Yes' in full_stack % }
+{% if 'Yes' in full_stack %}
   medusa80ELBListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -274,9 +244,9 @@ Resources:
       LoadBalancerArn: !Ref medusaAlb
       Port: 80
       Protocol: "HTTP"
-  { % endif % }
+{% endif %}
 
-  { % if 'Yes' in full_stack % }
+{% if 'Yes' in full_stack %}
   medusaAlb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -294,19 +264,19 @@ Resources:
       Name: !Sub "medusa-${Account}-cf-alb"
       Scheme: internal
       SecurityGroups:
-  { % if 'us' not in region % }
-  - !GetAtt medusaAlbSg.GroupId
-  { % else % }
-  - !Ref AlbSecurityGroup
-  { % endif % }
-  Subnets: !Split
-    - ","
-    - !Ref AlbSubnets
-  Type: application
-  Tags:
-    - Key: Application
-      Value: !Ref Application
-  { % endif % }
+  {% if 'us' not in region %}
+        - !GetAtt medusaAlbSg.GroupId
+  {% else %}
+        - !Ref AlbSecurityGroup
+  {% endif %}
+    Subnets: !Split
+      - ","
+      - !Ref AlbSubnets
+      Type: application
+      Tags:
+        - Key: Application
+          Value: !Ref Application
+{% endif %}
 
   #<editor-fold desc="- Non-US properties">
   # Some resources in US were created manually and their ARNs/IDs hardcoded in the code.
@@ -349,8 +319,8 @@ Resources:
       Description: "Allows ECS tasks to call AWS services"
       RoleName: !Sub "MedusaTaskExecutionRole-${Account}"
 
-  { % if 'us' not in region
-    and 'Yes' in full_stack % }
+{% if 'us' not in region
+  and 'Yes' in full_stack %}
   medusaAlbSg:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -374,25 +344,23 @@ Resources:
           CidrIpv6: ::/0
           FromPort: 443
           ToPort: 443
-  { % endif % }
+{% endif %}
 
-  { % if 'us' not in region % }
+{% if 'us' not in region %}
   medusaEcsSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Medusa ecs security group
       GroupName: !Sub "Medusa-${Account}-ecs-sg"
       VpcId: !Ref VpcId
-  { % if 'Yes' in full_stack % }
-  SecurityGroupIngress:
-    - SourceSecurityGroupId: !Ref medusaAlbSg
-      IpProtocol: tcp
-      FromPort: 80
-      ToPort: 80
-  { % endif % }
-  { % endif % }
+  {% if 'Yes' in full_stack %}
+    SecurityGroupIngress:
+      - SourceSecurityGroupId: !Ref medusaAlbSg
+        IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+  {% endif %}
+{% endif %}
   # End of non US-only resources
   #</editor-fold>
 
-
-{% endif %}
