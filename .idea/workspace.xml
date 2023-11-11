@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="implementing app config">
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/files/dummy.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/operations/aws/deploy_stack.sh" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack">
+      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/ecs_vars.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/group_vars/all/all.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/inventory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/inventory.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws",
+    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/inventories/lab_eu_central/group_vars/all",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
@@ -68,11 +64,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all" />
       <recent name="$PROJECT_DIR$/operations/aws" />
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/files" />
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/files" />
       <recent name="$PROJECT_DIR$/.github/actions" />
-      <recent name="$PROJECT_DIR$/.github/workflows" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates" />
@@ -147,14 +143,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="12400000" />
-    </task>
-    <task id="LOCAL-00071" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699168406094</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1699168406095</updated>
+      <workItem from="1699600081773" duration="13339000" />
     </task>
     <task id="LOCAL-00072" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699168707152</created>
@@ -492,7 +481,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699623262949</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack">
+      <created>1699678773734</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1699678773734</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +523,8 @@
     <MESSAGE value="cleanup + made the workflow run properly" />
     <MESSAGE value="making the connection to aws from github actions" />
     <MESSAGE value="implementing app config" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementing app config" />
+    <MESSAGE value="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
