@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing deploy to artifactory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/src/main/java/com/example/microservice1/controller/Microservice1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/src/main/java/com/example/microservice1/controller/Microservice1Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,21 +141,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="41295000" />
-    </task>
-    <task id="LOCAL-00076" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203292479</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203292480</updated>
-    </task>
-    <task id="LOCAL-00077" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203497856</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203497857</updated>
+      <workItem from="1699600081773" duration="43399000" />
     </task>
     <task id="LOCAL-00078" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699203690085</created>
@@ -484,7 +472,21 @@
       <option name="project" value="LOCAL" />
       <updated>1699778922441</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="fixing deploy to artifactory">
+      <created>1699779645851</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1699779645852</updated>
+    </task>
+    <task id="LOCAL-00126" summary="fixing deploy to artifactory">
+      <created>1699779651766</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1699779651766</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
