@@ -11,7 +11,6 @@ public class Microservice1Controller {
 
     @GetMapping("/")
     public String displayHelloWorld(Model model){
-        model.addAttribute("message", "Hello, World!");
         return "index";
     }
 
