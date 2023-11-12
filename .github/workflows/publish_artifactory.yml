@@ -67,7 +67,7 @@ jobs:
           mvn --batch-mode clean install
           mvn -X --debug jib:build \
           -Djib.skip=false \
-          -Djib.from.image=deploydemo.jfrog.io/docker/eclipse-temurin:17  \
-          -Ddocker.repo=deploy-demo \
+          -Djib.from.image=demofordeploy.jfrog.io/docker/library/eclipse-temurin:17  \
+          -Ddocker.repo=demofordeploy \
           -Dimage.version='${{ steps.tag-version.outputs.tag }}' \
           -pl 'microservice1,microservice2'
