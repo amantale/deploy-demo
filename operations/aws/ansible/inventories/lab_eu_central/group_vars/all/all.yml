@@ -10,10 +10,10 @@ instance_type: "t2.micro"
 image_id: "ami-0a485299eeb98b979"
 application: "deploy-demo"
 full_stack: "Yes"
-artifactory_host: "deploydemo.jfrog.io"
+artifactory_host: "demofordeploy.jfrog.io"
 ecs_tasks_count: 1
 
-ecs_artifactory_credentials: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deploydemo-Artifactory-Credential-G51ARr"
+ecs_artifactory_credentials: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deployfordemo-Artifactory-Credential-xshSuW"
 ecs_subnets: "subnet-07ce1bae678b5a9cb,subnet-02345fc06e28d3f2d,subnet-0c771ead1d7ecaff3"
 ecs_security_group: "Value is created and taken from CFN - medusaEcsSecurityGroup"
 ecs_execution_role: "Value is created and taken from CFN - medusaEcsRole"

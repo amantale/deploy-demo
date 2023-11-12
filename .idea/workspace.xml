@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing ecs deployment">
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing deploy to artifactory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,14 +139,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="40507000" />
-    </task>
-    <task id="LOCAL-00075" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203286977</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203286978</updated>
+      <workItem from="1699600081773" duration="41295000" />
     </task>
     <task id="LOCAL-00076" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699203292479</created>
@@ -485,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699775156409</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="fixing deploy to artifactory">
+      <created>1699778922441</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1699778922441</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,7 +522,8 @@
     <MESSAGE value="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack" />
     <MESSAGE value="trying to fix medusa" />
     <MESSAGE value="fixing ecs deployment" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing ecs deployment" />
+    <MESSAGE value="fixing deploy to artifactory" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing deploy to artifactory" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
