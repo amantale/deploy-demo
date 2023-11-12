@@ -165,7 +165,6 @@ Resources:
         - CertificateArn: !Ref AlbListenerCertificate
       DefaultActions:
         - Type: forward
-          Order: 1
           ForwardConfig:
             TargetGroups:
               - TargetGroupArn: !Ref medusaTargetGroup
@@ -262,7 +261,7 @@ Resources:
         - Key: routing.http2.enabled
           Value: "true"
       Name: !Sub "medusa-${Account}-cf-alb"
-      Scheme: internal
+      Scheme: internet-facing
       SecurityGroups:
   {% if 'us' not in region %}
         - !GetAtt medusaAlbSg.GroupId
