@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix medusa">
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="fixing ecs deployment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/ecs_vars.json" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/ecs_vars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/deploy_stack.sh" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/deploy_stack.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,14 +140,7 @@
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
       <workItem from="1699384269755" duration="2306000" />
-      <workItem from="1699600081773" duration="32794000" />
-    </task>
-    <task id="LOCAL-00073" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699202800158</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1699202800158</updated>
+      <workItem from="1699600081773" duration="37177000" />
     </task>
     <task id="LOCAL-00074" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699203080726</created>
@@ -490,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699679785417</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="fixing ecs deployment">
+      <created>1699715597869</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1699715597869</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +522,8 @@
     <MESSAGE value="implementing app config" />
     <MESSAGE value="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack" />
     <MESSAGE value="trying to fix medusa" />
-    <option name="LAST_COMMIT_MESSAGE" value="trying to fix medusa" />
+    <MESSAGE value="fixing ecs deployment" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing ecs deployment" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

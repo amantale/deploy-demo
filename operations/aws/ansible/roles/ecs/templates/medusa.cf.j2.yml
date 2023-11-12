@@ -278,10 +278,6 @@ Resources:
           Value: !Ref Application
 {% endif %}
 
-  #<editor-fold desc="- Non-US properties">
-  # Some resources in US were created manually and their ARNs/IDs hardcoded in the code.
-  # For newer regions we create the CFN resources from this yaml file, so resources below should be non-US
-
   medusaEcsRole:
     Type: AWS::IAM::Role
     Properties:
@@ -361,6 +357,4 @@ Resources:
         ToPort: 80
   {% endif %}
 {% endif %}
-  # End of non US-only resources
-  #</editor-fold>
 
