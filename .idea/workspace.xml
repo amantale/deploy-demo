@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making sure ansible and deploy-aws.yml work properly">
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix why ecs times out">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,40 +38,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/.github/actions&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;63733f7caad20ade35eecacd12d89759&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/inventories/lab_eu_central/group_vars/all",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Shell Script&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Shell Script"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/.github/actions" />
-      <recent name="$PROJECT_DIR$/.github/workflows" />
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all" />
       <recent name="$PROJECT_DIR$/operations/aws" />
-      <recent name="$PROJECT_DIR$/microservice2/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/files" />
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/files" />
+      <recent name="$PROJECT_DIR$/.github/actions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/microservice1" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.microservice1/Dockerfile">
+  <component name="RunManager" selected="Compound.Run-All-Microservices">
     <configuration name="Run-All-Microservices" type="CompoundRunConfigurationType">
       <toRun name="Microservice1Application" type="SpringBootApplicationConfigurationType" />
       <toRun name="Microservice2Application" type="SpringBootApplicationConfigurationType" />
@@ -136,307 +139,8 @@
       <workItem from="1698953847871" duration="6463000" />
       <workItem from="1699024407479" duration="3012000" />
       <workItem from="1699357896225" duration="2786000" />
-    </task>
-    <task id="LOCAL-00037" summary="trying to fix publishing to artifactory">
-      <created>1698957256029</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1698957256030</updated>
-    </task>
-    <task id="LOCAL-00038" summary="trying to fix publishing to artifactory">
-      <created>1698957596085</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1698957596085</updated>
-    </task>
-    <task id="LOCAL-00039" summary="trying to fix publishing to artifactory">
-      <created>1698957897149</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1698957897149</updated>
-    </task>
-    <task id="LOCAL-00040" summary="trying to fix publishing to artifactory">
-      <created>1698957982308</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1698957982309</updated>
-    </task>
-    <task id="LOCAL-00041" summary="trying to fix publishing to artifactory">
-      <created>1698958067304</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1698958067304</updated>
-    </task>
-    <task id="LOCAL-00042" summary="trying to fix publishing to artifactory">
-      <created>1698958183105</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1698958183105</updated>
-    </task>
-    <task id="LOCAL-00043" summary="trying to fix publishing to artifactory">
-      <created>1698958338724</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1698958338725</updated>
-    </task>
-    <task id="LOCAL-00044" summary="trying to fix publishing to artifactory">
-      <created>1698959397769</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959397770</updated>
-    </task>
-    <task id="LOCAL-00045" summary="trying to fix publishing to artifactory">
-      <created>1698959591531</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959591531</updated>
-    </task>
-    <task id="LOCAL-00046" summary="trying to fix publishing to artifactory">
-      <created>1698959820930</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959820931</updated>
-    </task>
-    <task id="LOCAL-00047" summary="trying to fix publishing to artifactory">
-      <created>1698959876369</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959876369</updated>
-    </task>
-    <task id="LOCAL-00048" summary="trying to fix publishing to artifactory">
-      <created>1698959971628</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1698959971629</updated>
-    </task>
-    <task id="LOCAL-00049" summary="trying to fix publishing to artifactory">
-      <created>1699025127930</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1699025127930</updated>
-    </task>
-    <task id="LOCAL-00050" summary="trying to fix publishing to artifactory">
-      <created>1699025156343</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1699025156343</updated>
-    </task>
-    <task id="LOCAL-00051" summary="starting to work on starting docker images locally">
-      <created>1699028802123</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1699028802123</updated>
-    </task>
-    <task id="LOCAL-00052" summary="implemented script to run docker images locally">
-      <created>1699040119568</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040119569</updated>
-    </task>
-    <task id="LOCAL-00053" summary="fixing PR summary">
-      <created>1699040472842</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040472843</updated>
-    </task>
-    <task id="LOCAL-00054" summary="fixing PR summary">
-      <created>1699040775701</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040775702</updated>
-    </task>
-    <task id="LOCAL-00055" summary="fixing PR summary">
-      <created>1699040835269</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040835270</updated>
-    </task>
-    <task id="LOCAL-00056" summary="fixing PR summary">
-      <created>1699040888118</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1699040888118</updated>
-    </task>
-    <task id="LOCAL-00057" summary="fixing PR summary">
-      <created>1699078574215</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1699078574216</updated>
-    </task>
-    <task id="LOCAL-00058" summary="fixing PR summary">
-      <created>1699078833835</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1699078833836</updated>
-    </task>
-    <task id="LOCAL-00059" summary="fixing PR summary">
-      <created>1699078883326</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1699078883327</updated>
-    </task>
-    <task id="LOCAL-00060" summary="setting up ansible and deploy-aws.yml">
-      <created>1699082783230</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1699082783230</updated>
-    </task>
-    <task id="LOCAL-00061" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699082970633</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1699082970633</updated>
-    </task>
-    <task id="LOCAL-00062" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699083187477</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1699083187477</updated>
-    </task>
-    <task id="LOCAL-00063" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699083417073</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1699083417073</updated>
-    </task>
-    <task id="LOCAL-00064" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699084532672</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1699084532673</updated>
-    </task>
-    <task id="LOCAL-00065" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699166809659</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1699166809660</updated>
-    </task>
-    <task id="LOCAL-00066" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699166995998</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1699166995999</updated>
-    </task>
-    <task id="LOCAL-00067" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699167211968</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1699167211969</updated>
-    </task>
-    <task id="LOCAL-00068" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699167218738</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1699167218739</updated>
-    </task>
-    <task id="LOCAL-00069" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699167376079</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1699167376080</updated>
-    </task>
-    <task id="LOCAL-00070" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699167543254</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1699167543256</updated>
-    </task>
-    <task id="LOCAL-00071" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699168406094</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1699168406095</updated>
-    </task>
-    <task id="LOCAL-00072" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699168707152</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1699168707153</updated>
-    </task>
-    <task id="LOCAL-00073" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699202800158</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1699202800158</updated>
-    </task>
-    <task id="LOCAL-00074" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203080726</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203080727</updated>
-    </task>
-    <task id="LOCAL-00075" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203286977</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203286978</updated>
-    </task>
-    <task id="LOCAL-00076" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203292479</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203292480</updated>
-    </task>
-    <task id="LOCAL-00077" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203497856</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203497857</updated>
-    </task>
-    <task id="LOCAL-00078" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203690085</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203690086</updated>
-    </task>
-    <task id="LOCAL-00079" summary="making sure ansible and deploy-aws.yml work properly">
-      <created>1699203827290</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1699203827290</updated>
+      <workItem from="1699384269755" duration="2306000" />
+      <workItem from="1699600081773" duration="47274000" />
     </task>
     <task id="LOCAL-00080" summary="making sure ansible and deploy-aws.yml work properly">
       <created>1699357928192</created>
@@ -480,7 +184,308 @@
       <option name="project" value="LOCAL" />
       <updated>1699359889833</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="cleanup + made the workflow run properly">
+      <created>1699363378508</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1699363378510</updated>
+    </task>
+    <task id="LOCAL-00087" summary="making the connection to aws from github actions">
+      <created>1699366336336</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1699366336336</updated>
+    </task>
+    <task id="LOCAL-00088" summary="making the connection to aws from github actions">
+      <created>1699367143394</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1699367143395</updated>
+    </task>
+    <task id="LOCAL-00089" summary="making the connection to aws from github actions">
+      <created>1699367637632</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1699367637633</updated>
+    </task>
+    <task id="LOCAL-00090" summary="making the connection to aws from github actions">
+      <created>1699368157602</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1699368157603</updated>
+    </task>
+    <task id="LOCAL-00091" summary="making the connection to aws from github actions">
+      <created>1699368298441</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1699368298442</updated>
+    </task>
+    <task id="LOCAL-00092" summary="implementing app config">
+      <created>1699384859571</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1699384859571</updated>
+    </task>
+    <task id="LOCAL-00093" summary="implementing app config">
+      <created>1699385103551</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1699385103551</updated>
+    </task>
+    <task id="LOCAL-00094" summary="implementing app config">
+      <created>1699385213128</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1699385213128</updated>
+    </task>
+    <task id="LOCAL-00095" summary="implementing app config">
+      <created>1699601917062</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1699601917063</updated>
+    </task>
+    <task id="LOCAL-00096" summary="implementing app config">
+      <created>1699603523880</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1699603523881</updated>
+    </task>
+    <task id="LOCAL-00097" summary="implementing app config">
+      <created>1699603711848</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1699603711849</updated>
+    </task>
+    <task id="LOCAL-00098" summary="implementing app config">
+      <created>1699603937817</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1699603937818</updated>
+    </task>
+    <task id="LOCAL-00099" summary="implementing app config">
+      <created>1699604247715</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1699604247716</updated>
+    </task>
+    <task id="LOCAL-00100" summary="implementing app config">
+      <created>1699604451641</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1699604451642</updated>
+    </task>
+    <task id="LOCAL-00101" summary="implementing app config">
+      <created>1699604866639</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1699604866640</updated>
+    </task>
+    <task id="LOCAL-00102" summary="implementing app config">
+      <created>1699604989272</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1699604989272</updated>
+    </task>
+    <task id="LOCAL-00103" summary="implementing app config">
+      <created>1699605234861</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1699605234862</updated>
+    </task>
+    <task id="LOCAL-00104" summary="implementing app config">
+      <created>1699605819742</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1699605819742</updated>
+    </task>
+    <task id="LOCAL-00105" summary="implementing app config">
+      <created>1699606195940</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1699606195941</updated>
+    </task>
+    <task id="LOCAL-00106" summary="implementing app config">
+      <created>1699606336877</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1699606336878</updated>
+    </task>
+    <task id="LOCAL-00107" summary="implementing app config">
+      <created>1699606445472</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1699606445473</updated>
+    </task>
+    <task id="LOCAL-00108" summary="implementing app config">
+      <created>1699606799528</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1699606799532</updated>
+    </task>
+    <task id="LOCAL-00109" summary="implementing app config">
+      <created>1699607024502</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1699607024503</updated>
+    </task>
+    <task id="LOCAL-00110" summary="implementing app config">
+      <created>1699611047007</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1699611047008</updated>
+    </task>
+    <task id="LOCAL-00111" summary="implementing app config">
+      <created>1699611071759</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1699611071760</updated>
+    </task>
+    <task id="LOCAL-00112" summary="implementing app config">
+      <created>1699611220054</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1699611220055</updated>
+    </task>
+    <task id="LOCAL-00113" summary="implementing app config">
+      <created>1699611252140</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1699611252140</updated>
+    </task>
+    <task id="LOCAL-00114" summary="implementing app config">
+      <created>1699621746644</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1699621746645</updated>
+    </task>
+    <task id="LOCAL-00115" summary="implementing app config">
+      <created>1699621973258</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1699621973259</updated>
+    </task>
+    <task id="LOCAL-00116" summary="implementing app config">
+      <created>1699622090362</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1699622090363</updated>
+    </task>
+    <task id="LOCAL-00117" summary="implementing app config">
+      <created>1699622259596</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1699622259597</updated>
+    </task>
+    <task id="LOCAL-00118" summary="implementing app config">
+      <created>1699622912399</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1699622912400</updated>
+    </task>
+    <task id="LOCAL-00119" summary="implementing app config">
+      <created>1699623262949</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1699623262949</updated>
+    </task>
+    <task id="LOCAL-00120" summary="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack">
+      <created>1699678773734</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1699678773734</updated>
+    </task>
+    <task id="LOCAL-00121" summary="trying to fix medusa">
+      <created>1699679785416</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1699679785417</updated>
+    </task>
+    <task id="LOCAL-00122" summary="fixing ecs deployment">
+      <created>1699715597869</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1699715597869</updated>
+    </task>
+    <task id="LOCAL-00123" summary="fixing ecs deployment">
+      <created>1699775156408</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1699775156409</updated>
+    </task>
+    <task id="LOCAL-00124" summary="fixing deploy to artifactory">
+      <created>1699778922441</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1699778922441</updated>
+    </task>
+    <task id="LOCAL-00125" summary="fixing deploy to artifactory">
+      <created>1699779645851</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1699779645852</updated>
+    </task>
+    <task id="LOCAL-00126" summary="fixing deploy to artifactory">
+      <created>1699779651766</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1699779651766</updated>
+    </task>
+    <task id="LOCAL-00127" summary="fixing deploy to artifactory">
+      <created>1699794205548</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1699794205550</updated>
+    </task>
+    <task id="LOCAL-00128" summary="trying to fix why ecs times out">
+      <created>1699794973114</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1699794973114</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +517,15 @@
     <MESSAGE value="fixing PR summary" />
     <MESSAGE value="setting up ansible and deploy-aws.yml" />
     <MESSAGE value="making sure ansible and deploy-aws.yml work properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="making sure ansible and deploy-aws.yml work properly" />
+    <MESSAGE value="cleanup + made the workflow run properly" />
+    <MESSAGE value="making the connection to aws from github actions" />
+    <MESSAGE value="implementing app config" />
+    <MESSAGE value="changed to the medusa implementation and make it work and now I can deploy to aws a simple cloudformation stack" />
+    <MESSAGE value="trying to fix medusa" />
+    <MESSAGE value="fixing ecs deployment" />
+    <MESSAGE value="fixing deploy to artifactory" />
+    <MESSAGE value="trying to fix why ecs times out" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to fix why ecs times out" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

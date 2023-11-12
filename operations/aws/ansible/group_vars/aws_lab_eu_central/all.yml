@@ -1,1 +1,10 @@
 variable_lab_eu_central_yml: "Hello from lab eu central"
+
+#deployment
+
+##app-config
+account_name: "lab-eu-central"
+application: "deploydemo"
+env_name: "lab"
+ring_name: "lab"
+aws_region: "eu-central-1"

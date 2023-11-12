@@ -1,0 +1,68 @@
+---
+- name: Lookup AppConfig Application id
+  cloudformation_info:
+    stack_name: "deploydemo-{{ account_name }}-app-config-application"
+    stack_resources: true
+  register: output
+- set_fact:
+    stack_name: "deploydemo-{{ account_name }}-app-config-application"
+- set_fact:
+    app_config_application_id: "{{ output['cloudformation'][stack_name]['stack_resources']['AppConfigApplication'] }}"
+    processor_profile_id: "{{ output['cloudformation'][stack_name]['stack_resources']['ProcessorAppConfigConfigurationProfile'] }}"
+    instant_deployment_strategy: "{{ output['cloudformation'][stack_name]['stack_resources']['AllAtOnceDeployment'] }}"
+    processor_default_configuration: "{{ lookup('file', 'processor.default.json') }}"
+    
+- name: Fill in processor default configuration
+  template:
+    src: '{{ role_path }}/files/app_config_deploy.yml.j2'
+    dest: '{{ role_path }}/files/app_config_deploy.yml'
+    
+- name: Create App Config resources
+  cloudformation:
+    stack_name: "{{ application }}-{{ env_name }}-app-config"
+    state: "present"
+    region: "{{ region }}"
+    template: "{{ role_path }}/files/app_config.yml"
+    template_parameters:
+      Application: "{{ application }}"
+      Environment: "{{ env_name }}"
+      AppConfigApplicationId: "{{ app_config_application_id }}"
+    tags:
+      Application: "{{ application }}"
+      Environment: "{{ env_name }}"
+      Ring: "{{ ring_name }}"
+      
+- name: Get environment id
+  cloudformation_info:
+    stack_name: "{{ application }}-{{ env_name }}-app-config"
+    stack_resources: true
+  register: output
+- set_fact:
+    env_stack_name: "{{ application }}-{{ env_name }}-app-config"
+- set_fact:
+    environment_id: "{{ output['cloudformation'][env_stack_name]['stack_resources']['AppConfigEnvironment'] }}"
+    
+- name: Check if any deployments already exist
+  command: "aws appconfig list-deployments --application-id {{ app_config_application_id }} --environment-id {{ environment_id }}"
+  register: out
+- set_fact:
+    deployment_list_output: '{{ out["stdout"] }}'
+    
+- name: Start deployment if doesn't exist
+  when: '{{ deployment_list_output["Items"] | length }} == 0'
+  cloudformation:
+    stack_name: "{{ application }}-{{ env_name }}-app-config-initial-deployment"
+    state: "present"
+    region: "{{ region }}"
+    template: "{{ role_path }}/files/app_config_deploy.yml"
+    template_parameters:
+      Application: "{{ application }}"
+      Environment: "{{ env_name }}"
+      AppConfigApplicationId: "{{ app_config_application_id }}"
+      AppConfigProcessorProfileId: "{{ processor_profile_id }}"
+      InstantDeploymentStrategy: "{{ instant_deployment_strategy }}"
+      EnvironmentId: "{{ environment_id }}"
+    tags:
+      Application: "{{ application }}"
+      Environment: "{{ env_name }}"
+      Ring: "{{ ring_name }}"

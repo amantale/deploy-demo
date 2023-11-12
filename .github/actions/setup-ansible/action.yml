@@ -30,4 +30,5 @@ runs:
     - name: Install dependencies
       working-directory: ${{ env.ANSIBLE_DIRECTORY }}
       shell: bash
-      run: pip install -r requirements.txt
+      run: |
+        pip3.9 install -r requirements.txt

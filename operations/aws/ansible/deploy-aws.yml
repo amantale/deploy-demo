@@ -1,9 +1,8 @@
 ---
 - name: trigger code deploy pipeline
-  hosts: deploydemo
-  gather_facts: true
+  hosts: hostname
   connection: local
   environment:
     AWS_REGION: "{{ aws_region }}"
   roles:
-    - role1
+    - ecs

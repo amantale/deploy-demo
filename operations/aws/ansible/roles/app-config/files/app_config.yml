@@ -1,0 +1,23 @@
+---
+Description: An AppConfig application for dynamic configuration
+Parameters:
+  Application:
+    Description: 'Application name to add to tags'
+    Type: String
+  Environment:
+    Description: 'The name of the Stack / Environment'
+    Type: String
+  AppConfigApplicationId:
+    Description: 'The id of AppConfig Application'
+    Type: String
+Resources:
+  AppConfigEnvironment:
+    Type: 'AWS::AppConfig::Environment'
+    Properties:
+      ApplicationId: !Ref AppConfigApplicationId
+      Name: !Ref Environment
+      Tags:
+        - Key: Application
+          Value: !Ref Application
+        - Key: Environment
+          Value: !Ref Environment

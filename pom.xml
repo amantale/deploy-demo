@@ -23,7 +23,7 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <docker.registry>deploydemo.jfrog.io</docker.registry>
+    <docker.registry>demofordeploy.jfrog.io</docker.registry>
     <docker.repo>docker</docker.repo>
     <image.version>1.0</image.version>
 
