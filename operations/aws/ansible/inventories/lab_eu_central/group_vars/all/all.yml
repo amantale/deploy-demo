@@ -19,7 +19,7 @@ ecs_security_group: "Value is created and taken from CFN - medusaEcsSecurityGrou
 ecs_execution_role: "Value is created and taken from CFN - medusaEcsRole"
 alb_subnets: "subnet-07ce1bae678b5a9cb,subnet-0c771ead1d7ecaff3"
 alb_security_group: "Value is created and taken from CFN - medusaAlbSg"
-alb_listener_certificate: "arn:aws:acm:eu-central-1:544176100230:certificate/f13c260f-47c4-4269-ad78-206a77bbe486"
+alb_listener_certificate: "arn:aws:acm:eu-central-1:544176100230:certificate/03119e0b-f842-45aa-a263-6eef204db376"
 vpc_id: "vpc-026bc198ec4d1e1cb"
 
 kms_secret_holder_arn: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deploydemo/lab/kms-key-arn-yLlLyH"
