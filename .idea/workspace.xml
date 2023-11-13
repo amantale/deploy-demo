@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix why ecs times out">
+      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice2/files/dummy.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice2/tasks/main.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice2/templates/microservice2.cf.j2.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2/src/main/java/com/example/microservice2/controller/Microservice2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2/src/main/java/com/example/microservice2/controller/Microservice2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/deploy-aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/files/dummy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice1/files/dummy.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice1/tasks/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates/medusa.cf.j2.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/roles/microservice1/templates/microservice1.cf.j2.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,34 +48,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/inventories/lab_eu_central/group_vars/all&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;63733f7caad20ade35eecacd12d89759&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/roles",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Shell Script&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Shell Script"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations/aws/ansible/roles" />
       <recent name="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all" />
       <recent name="$PROJECT_DIR$/operations/aws" />
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/files" />
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/app-config/files" />
-      <recent name="$PROJECT_DIR$/.github/actions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/operations/aws/ansible/roles/ecs/templates" />

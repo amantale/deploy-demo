@@ -23,15 +23,15 @@
 
 - name: Generate CFN Template File
   template:
-    src: "{{role_path}}/templates/medusa.cf.j2.yml"
-    dest: "{{role_path}}/files/medusa.cf.j2.yml"
+    src: "{{role_path}}/templates/microservice1.cf.j2.yml"
+    dest: "{{role_path}}/files/microservice1.cf.j2.yml"
 
-- name: Create Medusa Stack
+- name: Create Microservice1 Stack
   cloudformation:
-    stack_name: "{{ cfn_stack_name }}"
+    stack_name: "{{ cfn_stack_name_for_microservice1 }}"
     state: "present"
     region: "{{ region }}"
-    template: "{{role_path}}/files/medusa.cf.j2.yml"
+    template: "{{role_path}}/files/microservice1.cf.j2.yml"
     template_parameters:
       Application: "{{ application }}"
       Account: "{{ account }}"
@@ -46,7 +46,7 @@
       EcsExecutionRole: "{{ ecs_execution_role }}"
       AlbSubnets: "{{ alb_subnets }}"
       AlbSecurityGroup: "{{ alb_security_group }}"
-      AlbListenerCertificate: "{{ alb_listener_certificate }}"
+      AlbListenerCertificateForMicroservice1: "{{ alb_listener_certificate_for_microservice1 }}"
       VpcId: "{{ vpc_id }}"
     tags:
       Application: "{{ application }}"

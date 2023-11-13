@@ -1,0 +1,358 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Microservices Application Stack
+Parameters:
+  Application:
+    Type: String
+  Account:
+    Type: String
+    Default: "lab"
+    AllowedValues:
+      - lab
+      - lab-west
+      - lab-eu-central
+      - prod
+      - prod-west
+      - prod-eu-central
+      - prod-eu-west
+  FullStack:
+    Type: String
+    Default: "Yes"
+    AllowedValues:
+      - "Yes"
+      - "No"
+    Description: "Specifies whether to create a full the microservices stack, or just the ECS cluster."
+  VersionTag:
+    Type: String
+    Description: "Git tag of the microservices application version"
+  ArtifactoryHost:
+    Type: String
+    Description: "Used in combination with VersionTag to create the completed Artifactory URL"
+  EcsServiceDesiredTaskCount:
+    Type: Number
+    Description: "Count of ECS tasks running the microservices application"
+  EcsEnvVars:
+    Type: String
+    Description: "JSON containing various Spring environment variables"
+  EcsArtifactoryCredentials:
+    Type: String
+    Description: "Artifactory credentials used by ECS to pull the correct image"
+  EcsSubnets:
+    Type: String
+    Description: "The 3 subnets of the ECS"
+  EcsSecurityGroup:
+    Type: String
+    Description: "The SG of the ECS"
+  EcsExecutionRole:
+    Type: String
+    Description: "It is either a IAM arn because this role already was created or a string"
+  AlbSubnets:
+    Type: String
+    Description: "The subnets of the ALBs"
+  AlbSecurityGroup:
+    Type: String
+    Description: "The SGs of the ALBs"
+  AlbListenerCertificateForMicroservice1:
+    Type: String
+    Description: "The certificate of the ALBs for microservice1"
+  VpcId:
+    Type: String
+    Description: "The VPC Id of the account"
+
+Resources:
+  microservice1EcsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub "microservice1-${Account}-cluster"
+      ClusterSettings:
+        - Name: "containerInsights"
+          Value: "enabled"
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
+
+  microservice1EcsService:
+    Type: AWS::ECS::Service
+{% if ('us' in region or 'eu' in region) and 'Yes' in full_stack%}
+    DependsOn:
+      - microservice1ELBListener80
+      - microservice1ELBListener443
+{% endif %}
+    Properties:
+      Cluster: !Ref microservice1EcsCluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DesiredCount: !Ref EcsServiceDesiredTaskCount
+      EnableECSManagedTags: true
+{% if 'Yes' in full_stack %}
+      HealthCheckGracePeriodSeconds: 30
+{% endif %}
+      LaunchType: "FARGATE"
+{% if 'Yes' in full_stack %}
+      LoadBalancers:
+        - ContainerName: !Sub "microservice1-${Account}"
+          ContainerPort: 80
+          TargetGroupArn: !Ref microservice1TargetGroup
+{% endif %}
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: "ENABLED"
+          SecurityGroups:
+{% if 'us' not in region %}
+            - !GetAtt microservice1EcsSecurityGroup.GroupId
+{% else %}
+            - !Ref EcsSecurityGroup
+{% endif %}
+          Subnets: !Split
+            - ","
+            - !Ref EcsSubnets
+      SchedulingStrategy: "REPLICA"
+      ServiceName: !Sub "microservice1-${Account}-service"
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
+      TaskDefinition: !Ref microservice1TaskDefinition
+
+  microservice1TaskDefinition:
+    DependsOn: microservice1EcsRole
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Name: !Sub "microservice1-${Account}"
+          Image: !Sub "${ArtifactoryHost}/docker/microservice1:${VersionTag}"
+          RepositoryCredentials:
+            CredentialsParameter: !Ref EcsArtifactoryCredentials
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
+              Protocol: tcp
+          Essential: true
+          Environment:
+            - Name: SPRING_APPLICATION_JSON
+              Value: !Ref EcsEnvVars
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "microservice1-${Account}-logs"
+              awslogs-region: !Ref "AWS::Region"
+              awslogs-stream-prefix: microservice1
+      Cpu: "1024"
+      ExecutionRoleArn:
+{% if 'us' not in region %}
+        !Ref microservice1EcsRole
+{% else %}
+        !Ref EcsExecutionRole
+{% endif %}
+      Family: !Sub "microservice1-${Account}"
+      Memory: "4096"
+      NetworkMode: "awsvpc"
+      RequiresCompatibilities:
+        - "FARGATE"
+      RuntimePlatform:
+        CpuArchitecture: ARM64
+        OperatingSystemFamily: LINUX
+      Tags:
+        - Key: "Application"
+          Value: !Ref Application
+      TaskRoleArn:
+        !Ref microservice1EcsRole
+
+{% if 'Yes' in full_stack %}
+  microservice1ELBListener443:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Certificates:
+        - CertificateArn: !Ref AlbListenerCertificateForMicroservice1
+      DefaultActions:
+        - Type: forward
+          ForwardConfig:
+            TargetGroups:
+              - TargetGroupArn: !Ref microservice1TargetGroup
+                Weight: 100
+            TargetGroupStickinessConfig:
+              Enabled: False
+      LoadBalancerArn: !Ref microservice1Alb
+      Port: 443
+      Protocol: "HTTPS"
+      SslPolicy: "ELBSecurityPolicy-2016-08"
+{% endif %}
+
+{% if 'Yes' in full_stack %}
+  microservice1TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckIntervalSeconds: 30
+      HealthCheckPath: "/actuator/health"
+      HealthCheckPort: "80"
+      HealthCheckProtocol: "HTTP"
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 5
+      Matcher:
+        HttpCode: "200"
+      Name: !Sub "microservice1-${Account}-80"
+      Port: 80
+      Protocol: "HTTP"
+      TargetGroupAttributes:
+        - Key: "stickiness.enabled"
+          Value: "false"
+        - Key: "deregistration_delay.timeout_seconds"
+          Value: "300"
+        - Key: "load_balancing.algorithm.type"
+          Value: "round_robin"
+        - Key: "slow_start.duration_seconds"
+          Value: "0"
+      TargetType: "ip"
+      UnhealthyThresholdCount: 2
+      VpcId: !Ref VpcId
+  {% endif %}
+
+{% if 'Yes' in full_stack %}
+  microservice1ELBListener443Rule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - Type: forward
+          ForwardConfig:
+            TargetGroups:
+              - TargetGroupArn: !Ref microservice1TargetGroup
+                Weight: 100
+            TargetGroupStickinessConfig:
+              Enabled: False
+      Conditions:
+        - Field: "path-pattern"
+          Values:
+            - "/actuator*"
+      ListenerArn: !Ref microservice1ELBListener443
+      Priority: 1
+{% endif %}
+
+{% if 'Yes' in full_stack %}
+  microservice1ELBListener80:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: redirect
+          RedirectConfig:
+            Host: "#{host}"
+            Path: "/#{path}"
+            Port: "443"
+            Protocol: "HTTPS"
+            Query: "#{query}"
+            StatusCode: "HTTP_301"
+      LoadBalancerArn: !Ref microservice1Alb
+      Port: 80
+      Protocol: "HTTP"
+{% endif %}
+
+{% if 'Yes' in full_stack %}
+  microservice1Alb:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      LoadBalancerAttributes:
+        - Key: access_logs.s3.enabled
+          Value: "false"
+        - Key: deletion_protection.enabled
+          Value: "false"
+        - Key: idle_timeout.timeout_seconds
+          Value: "60"
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: "false"
+        - Key: routing.http2.enabled
+          Value: "true"
+      Name: !Sub "microservice1-${Account}-alb"
+      Scheme: internet-facing
+      SecurityGroups:
+  {% if 'us' not in region %}
+        - !GetAtt microservice1AlbSg.GroupId
+  {% else %}
+        - !Ref AlbSecurityGroup
+  {% endif %}
+    Subnets: !Split
+      - ","
+      - !Ref AlbSubnets
+      Type: application
+      Tags:
+        - Key: Application
+          Value: !Ref Application
+{% endif %}
+
+  microservice1EcsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs.amazonaws.com
+                - ec2.amazonaws.com
+                - ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - kms:Decrypt
+                  - kms:Encrypt
+                  - kms:GenerateDataKey
+                  - kms:DescribeKey
+                  - kms:ListKeys
+                  - kms:ListAliases
+                Effect: Allow
+                Resource:
+                  - '*'
+          PolicyName: !Sub Microservice1KmsPolicy-${Account}
+      Path: "/"
+      Description: "Allows ECS tasks to call AWS services"
+      RoleName: !Sub "Microservice1TaskExecutionRole-${Account}"
+
+{% if 'us' not in region
+  and 'Yes' in full_stack %}
+  microservice1AlbSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Microservice1 ALB security group
+      GroupName: !Sub "microservice1-${Account}-alb-sg"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 80
+          ToPort: 80
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 443
+          ToPort: 443
+        - IpProtocol: tcp
+          CidrIpv6: ::/0
+          FromPort: 80
+          ToPort: 80
+        - IpProtocol: tcp
+          CidrIpv6: ::/0
+          FromPort: 443
+          ToPort: 443
+{% endif %}
+
+{% if 'us' not in region %}
+  microservice1EcsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Microservice1 ecs security group
+      GroupName: !Sub "Microservice1-${Account}-ecs-sg"
+      VpcId: !Ref VpcId
+  {% if 'Yes' in full_stack %}
+    SecurityGroupIngress:
+      - SourceSecurityGroupId: !Ref microservice1AlbSg
+        IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+  {% endif %}
+{% endif %}
