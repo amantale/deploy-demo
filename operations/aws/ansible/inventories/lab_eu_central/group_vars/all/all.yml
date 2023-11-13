@@ -21,7 +21,7 @@ ecs_execution_role: "Value is created and taken from CFN - microservice1EcsRole"
 alb_subnets: "subnet-07ce1bae678b5a9cb,subnet-0c771ead1d7ecaff3"
 alb_security_group: "Value is created and taken from CFN - microservice1AlbSg"
 alb_listener_certificate_for_microservice1: "arn:aws:acm:eu-central-1:544176100230:certificate/baafc45e-7222-42a0-84b5-6092541ec6c6"
-alb_listener_certificate_for_microservice2: "arn:aws:acm:eu-central-1:544176100230:certificate/03119e0b-f842-45aa-a263-6eef204db376"
+alb_listener_certificate_for_microservice2: "arn:aws:acm:eu-central-1:544176100230:certificate/57dc45ac-e811-4e07-ace2-76e6fda4f67f"
 vpc_id: "vpc-026bc198ec4d1e1cb"
 
 kms_secret_holder_arn: "arn:aws:secretsmanager:eu-central-1:544176100230:secret:deploydemo/lab/kms-key-arn-yLlLyH"
