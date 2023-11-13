@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="making deployment available for microservice2">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipeline_workflow.yml" afterDir="false" />
+    <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="trying to fix why ecs times out">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" beforeDir="false" afterPath="$PROJECT_DIR$/operations/aws/ansible/inventories/lab_eu_central/group_vars/all/all.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +16,9 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,7 +54,7 @@
     "jdk.selected.JAVA_MODULE": "corretto-17",
     "last_opened_file_path": "/Users/amantale/Desktop/work/projects/deploy-demo/operations/aws/ansible/roles",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "advanced.settings",
     "spring.configuration.checksum": "63733f7caad20ade35eecacd12d89759"
   },
   "keyToStringList": {
