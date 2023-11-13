@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b93584e1-4027-4139-9ddf-f71a9ebcd09a" name="Changes" comment="pretest for demo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice1/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice1/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
