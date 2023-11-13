@@ -1,0 +1,52 @@
+---
+- name: Load JSON with ECS Task Environment Variables
+  set_fact:
+    ecs_vars_json_data_with_placeholder: "{{ lookup('file', '{{ inventory_dir }}/group_vars/all/ecs_vars.json') }}"
+
+- name: Load KMS ARN
+  set_fact:
+    kms_arn: "{{ lookup('aws_secret', '{{ kms_secret_holder_arn }}', region=region) }}"
+
+- name: Load KMS ARN for uat ring
+  when: ('prod' in account)
+  set_fact:
+    uat_kms_arn: "{{ lookup('aws_secret', '{{ uat_kms_secret_holder_arn }}', region=region) }}"
+
+- name: Replace uat KMS placeholder in 'ecs_vars_json_data_with_placeholder'
+  when: ('prod' in account)
+  set_fact:
+    ecs_vars_json_data_with_placeholder: "{{ ecs_vars_json_data_with_placeholder | replace('UAT_CROSS_REGION_KEY_ARN_PLACEHOLDER', uat_kms_arn) }}"
+
+- name: Replace KMS placeholder in 'ecs_vars_json_data_with_placeholder'
+  set_fact:
+    ecs_vars_json_data: "{{ ecs_vars_json_data_with_placeholder | replace('CROSS_REGION_KEY_ARN_PLACEHOLDER', kms_arn) }}"
+
+- name: Generate CFN Template File
+  template:
+    src: "{{role_path}}/templates/microservice2.cf.j2.yml"
+    dest: "{{role_path}}/files/microservice2.cf.j2.yml"
+
+- name: Create Microservice2 Stack
+  cloudformation:
+    stack_name: "{{ cfn_stack_name_for_microservice2 }}"
+    state: "present"
+    region: "{{ region }}"
+    template: "{{role_path}}/files/microservice2.cf.j2.yml"
+    template_parameters:
+      Application: "{{ application }}"
+      Account: "{{ account }}"
+      FullStack: "{{ full_stack }}"
+      VersionTag: "{{ version_tag }}"
+      ArtifactoryHost: "{{ artifactory_host }}"
+      EcsServiceDesiredTaskCount: "{{ ecs_tasks_count }}"
+      EcsEnvVars: "{{ ecs_vars_json_data | to_json }}"
+      EcsArtifactoryCredentials: "{{ ecs_artifactory_credentials }}"
+      EcsSubnets: "{{ ecs_subnets }}"
+      EcsSecurityGroup: "{{ ecs_security_group }}"
+      EcsExecutionRole: "{{ ecs_execution_role }}"
+      AlbSubnets: "{{ alb_subnets }}"
+      AlbSecurityGroup: "{{ alb_security_group }}"
+      AlbListenerCertificateForMicroservice2: "{{ alb_listener_certificate_for_microservice2 }}"
+      VpcId: "{{ vpc_id }}"
+    tags:
+      Application: "{{ application }}"

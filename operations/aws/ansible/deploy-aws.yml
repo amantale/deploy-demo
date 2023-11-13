@@ -5,4 +5,5 @@
   environment:
     AWS_REGION: "{{ aws_region }}"
   roles:
-    - ecs
+    - microservice1
+    - microservice2

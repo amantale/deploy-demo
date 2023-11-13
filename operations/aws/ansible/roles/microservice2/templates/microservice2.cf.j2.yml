@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Medusa Application Stack
+Description: Microservices Application Stack
 Parameters:
   Application:
     Type: String
@@ -20,16 +20,16 @@ Parameters:
     AllowedValues:
       - "Yes"
       - "No"
-    Description: "Specifies whether to create a full medusa stack, or just the ECS cluster."
+    Description: "Specifies whether to create a full the microservices stack, or just the ECS cluster."
   VersionTag:
     Type: String
-    Description: "Git tag of the Medusa application version"
+    Description: "Git tag of the microservices application version"
   ArtifactoryHost:
     Type: String
     Description: "Used in combination with VersionTag to create the completed Artifactory URL"
   EcsServiceDesiredTaskCount:
     Type: Number
-    Description: "Count of ECS tasks running the Medusa application"
+    Description: "Count of ECS tasks running the microservices application"
   EcsEnvVars:
     Type: String
     Description: "JSON containing various Spring environment variables"
@@ -51,18 +51,18 @@ Parameters:
   AlbSecurityGroup:
     Type: String
     Description: "The SGs of the ALBs"
-  AlbListenerCertificate:
+  AlbListenerCertificateForMicroservice2:
     Type: String
-    Description: "The certificate of the ALBs"
+    Description: "The certificate of the ALBs for microservice2"
   VpcId:
     Type: String
     Description: "The VPC Id of the account"
 
 Resources:
-  medusaEcsCluster:
+  microservice2EcsCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: !Sub "medusa-${Account}-cluster"
+      ClusterName: !Sub "microservice2-${Account}-cluster"
       ClusterSettings:
         - Name: "containerInsights"
           Value: "enabled"
@@ -70,15 +70,15 @@ Resources:
         - Key: "Application"
           Value: !Ref Application
 
-  medusaEcsService:
+  microservice2EcsService:
     Type: AWS::ECS::Service
 {% if ('us' in region or 'eu' in region) and 'Yes' in full_stack%}
     DependsOn:
-      - medusa80ELBListener
-      - medusa443ElbListener
+      - microservice2ELBListener80
+      - microservice2ELBListener443
 {% endif %}
     Properties:
-      Cluster: !Ref medusaEcsCluster
+      Cluster: !Ref microservice2EcsCluster
       DeploymentConfiguration:
         MaximumPercent: 200
         MinimumHealthyPercent: 100
@@ -90,16 +90,16 @@ Resources:
       LaunchType: "FARGATE"
 {% if 'Yes' in full_stack %}
       LoadBalancers:
-        - ContainerName: !Sub "medusa-${Account}"
+        - ContainerName: !Sub "microservice2-${Account}"
           ContainerPort: 80
-          TargetGroupArn: !Ref medusaTargetGroup
+          TargetGroupArn: !Ref microservice2TargetGroup
 {% endif %}
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: "ENABLED"
           SecurityGroups:
 {% if 'us' not in region %}
-            - !GetAtt medusaEcsSecurityGroup.GroupId
+            - !GetAtt microservice2EcsSecurityGroup.GroupId
 {% else %}
             - !Ref EcsSecurityGroup
 {% endif %}
@@ -107,19 +107,19 @@ Resources:
             - ","
             - !Ref EcsSubnets
       SchedulingStrategy: "REPLICA"
-      ServiceName: !Sub "medusa-${Account}-service"
+      ServiceName: !Sub "microservice2-${Account}-service"
       Tags:
         - Key: "Application"
           Value: !Ref Application
-      TaskDefinition: !Ref medusaEcsTaskDefinition
+      TaskDefinition: !Ref microservice2TaskDefinition
 
-  medusaEcsTaskDefinition:
-    DependsOn: medusaEcsRole
+  microservice2TaskDefinition:
+    DependsOn: microservice2EcsRole
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
-        - Name: !Sub "medusa-${Account}"
-          Image: !Sub "${ArtifactoryHost}/docker/microservice1:${VersionTag}"
+        - Name: !Sub "microservice2-${Account}"
+          Image: !Sub "${ArtifactoryHost}/docker/microservice2:${VersionTag}"
           RepositoryCredentials:
             CredentialsParameter: !Ref EcsArtifactoryCredentials
           PortMappings:
@@ -133,17 +133,17 @@ Resources:
           LogConfiguration:
             LogDriver: awslogs
             Options:
-              awslogs-group: !Sub "medusa-${Account}-logs"
+              awslogs-group: !Sub "microservice2-${Account}-logs"
               awslogs-region: !Ref "AWS::Region"
-              awslogs-stream-prefix: medusa
+              awslogs-stream-prefix: microservice2
       Cpu: "1024"
       ExecutionRoleArn:
 {% if 'us' not in region %}
-        !Ref medusaEcsRole
+        !Ref microservice2EcsRole
 {% else %}
         !Ref EcsExecutionRole
 {% endif %}
-      Family: !Sub "medusa-${Account}"
+      Family: !Sub "microservice2-${Account}"
       Memory: "4096"
       NetworkMode: "awsvpc"
       RequiresCompatibilities:
@@ -155,30 +155,30 @@ Resources:
         - Key: "Application"
           Value: !Ref Application
       TaskRoleArn:
-        !Ref medusaEcsRole
+        !Ref microservice2EcsRole
 
 {% if 'Yes' in full_stack %}
-  medusa443ElbListener:
+  microservice2ELBListener443:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       Certificates:
-        - CertificateArn: !Ref AlbListenerCertificate
+        - CertificateArn: !Ref AlbListenerCertificateForMicroservice2
       DefaultActions:
         - Type: forward
           ForwardConfig:
             TargetGroups:
-              - TargetGroupArn: !Ref medusaTargetGroup
+              - TargetGroupArn: !Ref microservice2TargetGroup
                 Weight: 100
             TargetGroupStickinessConfig:
               Enabled: False
-      LoadBalancerArn: !Ref medusaAlb
+      LoadBalancerArn: !Ref microservice2Alb
       Port: 443
       Protocol: "HTTPS"
       SslPolicy: "ELBSecurityPolicy-2016-08"
 {% endif %}
 
 {% if 'Yes' in full_stack %}
-  medusaTargetGroup:
+  microservice2TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckEnabled: true
@@ -190,7 +190,7 @@ Resources:
       HealthyThresholdCount: 5
       Matcher:
         HttpCode: "200"
-      Name: !Sub "ecs-medusa-${Account}-80"
+      Name: !Sub "microservice2-${Account}-80"
       Port: 80
       Protocol: "HTTP"
       TargetGroupAttributes:
@@ -208,14 +208,14 @@ Resources:
   {% endif %}
 
 {% if 'Yes' in full_stack %}
-  medusa443ElbListenerRule:
+  microservice2ELBListener443Rule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
       Actions:
         - Type: forward
           ForwardConfig:
             TargetGroups:
-              - TargetGroupArn: !Ref medusaTargetGroup
+              - TargetGroupArn: !Ref microservice2TargetGroup
                 Weight: 100
             TargetGroupStickinessConfig:
               Enabled: False
@@ -223,12 +223,12 @@ Resources:
         - Field: "path-pattern"
           Values:
             - "/actuator*"
-      ListenerArn: !Ref medusa443ElbListener
+      ListenerArn: !Ref microservice2ELBListener443
       Priority: 1
 {% endif %}
 
 {% if 'Yes' in full_stack %}
-  medusa80ELBListener:
+  microservice2ELBListener80:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
@@ -240,13 +240,13 @@ Resources:
             Protocol: "HTTPS"
             Query: "#{query}"
             StatusCode: "HTTP_301"
-      LoadBalancerArn: !Ref medusaAlb
+      LoadBalancerArn: !Ref microservice2Alb
       Port: 80
       Protocol: "HTTP"
 {% endif %}
 
 {% if 'Yes' in full_stack %}
-  medusaAlb:
+  microservice2Alb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       LoadBalancerAttributes:
@@ -260,11 +260,11 @@ Resources:
           Value: "false"
         - Key: routing.http2.enabled
           Value: "true"
-      Name: !Sub "medusa-${Account}-cf-alb"
+      Name: !Sub "microservice2-${Account}-alb"
       Scheme: internet-facing
       SecurityGroups:
   {% if 'us' not in region %}
-        - !GetAtt medusaAlbSg.GroupId
+        - !GetAtt microservice2AlbSg.GroupId
   {% else %}
         - !Ref AlbSecurityGroup
   {% endif %}
@@ -277,7 +277,7 @@ Resources:
           Value: !Ref Application
 {% endif %}
 
-  medusaEcsRole:
+  microservice2EcsRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -309,18 +309,18 @@ Resources:
                 Effect: Allow
                 Resource:
                   - '*'
-          PolicyName: !Sub MedusaKmsPolicy-${Account}
+          PolicyName: !Sub microservice2KmsPolicy-${Account}
       Path: "/"
       Description: "Allows ECS tasks to call AWS services"
-      RoleName: !Sub "MedusaTaskExecutionRole-${Account}"
+      RoleName: !Sub "microservice2TaskExecutionRole-${Account}"
 
 {% if 'us' not in region
   and 'Yes' in full_stack %}
-  medusaAlbSg:
+  microservice2AlbSg:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Medusa ALB security group
-      GroupName: !Sub "Medusa-${Account}-alb-sg"
+      GroupDescription: microservice2 ALB security group
+      GroupName: !Sub "microservice2-${Account}-alb-sg"
       VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -342,18 +342,17 @@ Resources:
 {% endif %}
 
 {% if 'us' not in region %}
-  medusaEcsSecurityGroup:
+  microservice2EcsSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Medusa ecs security group
-      GroupName: !Sub "Medusa-${Account}-ecs-sg"
+      GroupDescription: microservice2 ecs security group
+      GroupName: !Sub "microservice2-${Account}-ecs-sg"
       VpcId: !Ref VpcId
   {% if 'Yes' in full_stack %}
     SecurityGroupIngress:
-      - SourceSecurityGroupId: !Ref medusaAlbSg
+      - SourceSecurityGroupId: !Ref microservice2AlbSg
         IpProtocol: tcp
         FromPort: 80
         ToPort: 80
   {% endif %}
 {% endif %}
-
